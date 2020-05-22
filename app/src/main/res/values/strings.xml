@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Apartment rental</string>
+
+    <string-array name="role">
+        <item>user</item>
+        <item>admin</item>
+    </string-array>
+
 </resources>

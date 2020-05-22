@@ -14,22 +14,23 @@ android:orientation="vertical">
         android:id="@+id/back"
         android:background="@drawable/ic_back"
         android:layout_gravity="left"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_margin="20dp"/>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apartments Rental"
+        android:text="APARTMENT RENTALS"
         android:layout_toRightOf="@id/back"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
         android:visibility="visible"
         android:fontFamily="sans-serif-medium"
         android:id="@+id/maintitle"
         android:layout_marginLeft="10dp"
-        android:textColor="#000"/>
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -44,15 +45,24 @@ android:orientation="vertical">
         android:id="@+id/subtitle"
         android:textColor="#000"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/subtitle">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/subtitle"
+        android:layout_marginTop="32dp">
 
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="8dp"
-        android:layout_below="@id/subtitle"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_account"
-        android:id="@+id/profileimage"
+        android:id="@+id/photo"
         android:scaleType="centerCrop"
         />
 
@@ -64,7 +74,7 @@ android:orientation="vertical">
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:textAllCaps="true"
-        android:layout_below="@id/profileimage"
+        android:layout_below="@id/photo"
         android:textColor="#000"
         android:textSize="15sp" />
 
@@ -152,9 +162,47 @@ android:orientation="vertical">
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="Phone Number"
+        android:id="@+id/tv_phone"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:textAllCaps="true"
+        android:layout_below="@id/spinner_role"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_below="@id/tv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:paddingLeft="4dp"
         android:paddingRight="4dp"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/btn_signup"
+        android:layout_below="@id/et_phone"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        android:text="sign up"
+        android:backgroundTint="@color/colorPrimary"
+        />
 
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
 
 
