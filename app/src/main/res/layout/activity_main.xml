@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
@@ -8,42 +8,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_admin"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background_rounded"
-        android:text="Admin"
-        android:textColor="#131212" />
-
-    <Button
-        android:id="@+id/btn_renter"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background_rounded"
-        android:text="Renter"
-        android:textColor="#131212" />
 
 
-    <Button
-        android:id="@+id/btn_user"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background_rounded"
-        android:text="USER"
-        android:textColor="#131212" />
-
-
-</LinearLayout>
+</RelativeLayout>
