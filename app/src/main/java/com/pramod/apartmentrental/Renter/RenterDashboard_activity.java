@@ -1,8 +1,10 @@
-package com.pramod.apartmentrental;
+package com.pramod.apartmentrental.Renter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.pramod.apartmentrental.R;
 
 public class RenterDashboard_activity extends AppCompatActivity {
 
