@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/users"
+        android:title="Users"
+        android:icon="@drawable/ic_group" />
+
+
+    <item
+        android:id="@+id/maps"
+        android:title="Listings"
+        android:icon="@drawable/ic_home" />
+
+
+    <item
+        android:id="@+id/account_user"
+        android:title="Account"
+        android:icon="@drawable/ic_account" />
+
+
+
+</menu>

@@ -69,22 +69,20 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="12dp"
        android:layout_marginBottom="12dp"
-        android:fontFamily="sans-serif-black"
         android:gravity="center"
+        android:textColor="@color/colorPrimary"
         android:text="Sign up"
-        android:textAllCaps="true"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_forget_pwd"
-        android:fontFamily="sans-serif-black"
         android:text="Forget Password"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="12dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:textSize="20sp"
-        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="12dp"
         android:layout_width="wrap_content"
