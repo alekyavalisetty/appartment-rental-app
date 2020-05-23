@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.pramod.apartmentrental.Admin.AdminDashboard_activity;
+import com.pramod.apartmentrental.Renter.RenterDashboard_activity;
+import com.pramod.apartmentrental.User.UserDashboard_activity;
 
 public class Login_activity extends AppCompatActivity {
 
@@ -36,6 +41,46 @@ public class Login_activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(mLoginEmail.getText().toString()))
+                {
+                    mLoginEmail.setError("Please Enter Email Id");
+                }
+                else if (TextUtils.isEmpty(mLoginPassword.getText().toString()))
+                {
+                    mLoginPassword.setError("Please Enter Password");
+                }
+                else
+                {
+                    String email = mLoginEmail.getText().toString();
+                    String password = mLoginPassword.getText().toString();
+
+                    if(email.equals("1@1.com") && password.equals("123456"))
+                    {
+                        Intent userIntent = new Intent(Login_activity.this, UserDashboard_activity.class);
+                        userIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(userIntent);
+                    }
+                    else if(email.equals("2@2.com") && password.equals("123456"))
+                    {
+                        Intent renterIntent = new Intent(Login_activity.this, RenterDashboard_activity.class);
+                        renterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(renterIntent);
+                    }
+                    else if(email.equals("3@3.com") && password.equals("123456")){
+
+                        Intent adminIntent = new Intent(Login_activity.this, AdminDashboard_activity.class);
+                        adminIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(adminIntent);
+                    }
+                }
+            }
+
+        });
+
 
     }
 }
