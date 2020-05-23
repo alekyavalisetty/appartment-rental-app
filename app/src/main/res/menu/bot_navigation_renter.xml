@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+
+    <item
+        android:id="@+id/my_listing"
+        android:title="My Listings"
+        android:icon="@drawable/ic_pin" />
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/ic_home" />
+
+
+    <item
+        android:id="@+id/add_listing"
+        android:title="Add Apartment"
+        android:icon="@drawable/ic_add_location" />
+
+
+    <item
+        android:id="@+id/account_Renter"
+        android:title="Account"
+        android:icon="@drawable/ic_account" />
+
+
+
+
+</menu>
