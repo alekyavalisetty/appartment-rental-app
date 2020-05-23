@@ -13,12 +13,14 @@ import com.pramod.apartmentrental.R;
 
 public class UserDashboard_activity extends AppCompatActivity {
 
+    private BottomNavigationView UserNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard_activity);
 
-        BottomNavigationView UserNavigation = findViewById(R.id.bottom_nav_view_user);
+        UserNavigation = findViewById(R.id.bottom_nav_view_user);
 
         UserNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
         //Initialise user home fragment

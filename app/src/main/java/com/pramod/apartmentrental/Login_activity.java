@@ -58,19 +58,19 @@ public class Login_activity extends AppCompatActivity {
                     String email = mLoginEmail.getText().toString();
                     String password = mLoginPassword.getText().toString();
 
-                    if(email.equals("1@1.com") && password.equals("123456"))
+                    if(email.equals("user") && password.equals("123456"))
                     {
                         Intent userIntent = new Intent(Login_activity.this, UserDashboard_activity.class);
                         userIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(userIntent);
                     }
-                    else if(email.equals("2@2.com") && password.equals("123456"))
+                    else if(email.equals("renter") && password.equals("123456"))
                     {
                         Intent renterIntent = new Intent(Login_activity.this, RenterDashboard_activity.class);
                         renterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(renterIntent);
                     }
-                    else if(email.equals("3@3.com") && password.equals("123456")){
+                    else if(email.equals("admin") && password.equals("123456")){
 
                         Intent adminIntent = new Intent(Login_activity.this, AdminDashboard_activity.class);
                         adminIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
