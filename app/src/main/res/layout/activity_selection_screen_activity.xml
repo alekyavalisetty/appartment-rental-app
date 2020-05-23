@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectionScreen_activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Please select from the following"
+            android:id="@+id/tv_description"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_description"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:id="@+id/btn_explore_user"
+            android:text="Explore Available Apartments"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_explore_user"
+            android:text="or"
+            android:id="@+id/tv_or"
+            android:layout_marginTop="4dp"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_or"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:id="@+id/btn_post_renter"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:text="Post New Apartments"/>
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
