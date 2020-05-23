@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminDashboard_activity"></activity>
-        <activity android:name=".UserDashboard_activity" />
-        <activity android:name=".RenterDashboard_activity" />
+        <activity android:name=".Admin.AdminDashboard_activity"></activity>
+        <activity android:name=".User.UserDashboard_activity" />
+        <activity android:name=".Renter.RenterDashboard_activity" />
         <activity android:name=".Splash_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
