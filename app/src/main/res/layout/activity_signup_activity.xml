@@ -189,6 +189,7 @@ android:orientation="vertical">
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:paddingLeft="4dp"
+        android:maxLength="10"
         android:paddingRight="4dp"/>
 
     <Button
