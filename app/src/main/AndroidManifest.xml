@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SelectionScreen_activity"></activity>
+        <activity android:name=".ForgetPassword_activity"></activity>
+        <activity android:name=".SelectionScreen_activity" />
         <activity android:name=".Admin.AdminDashboard_activity" />
         <activity android:name=".User.UserDashboard_activity" />
         <activity android:name=".Renter.RenterDashboard_activity" />
@@ -21,10 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Signup_activity" />
-        <activity android:name=".Login_activity" >
-
-
-        </activity>
+        <activity android:name=".Login_activity"></activity>
         <activity android:name=".Main_activity" />
     </application>
 
