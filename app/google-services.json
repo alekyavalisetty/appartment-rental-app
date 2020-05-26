@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "664239288504",
+    "firebase_url": "https://rental-apartments-97b74.firebaseio.com",
+    "project_id": "rental-apartments-97b74",
+    "storage_bucket": "rental-apartments-97b74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664239288504:android:8ff9d67948ed9d1735844d",
+        "android_client_info": {
+          "package_name": "com.pramod.apartmentrental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664239288504-fccmmm2d0j3h5b5bpkojqkbelcu4t043.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pramod.apartmentrental",
+            "certificate_hash": "664cc0eb644e581298bea64ad9f13919753e3792"
+          }
+        },
+        {
+          "client_id": "664239288504-8fq73vdv64i0e3hdn0hps32p1r4uq1vq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIk3zMcaa3Yxrzzuzns8dIZlbIjSdeEK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "664239288504-8fq73vdv64i0e3hdn0hps32p1r4uq1vq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
