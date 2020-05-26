@@ -6,4 +6,11 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="blue">#2196f3</color>
+
+
+
+    <color name="transparent">#00000000</color>
+
+    <color name="gradStart">#fff86e</color>
+    <color name="gradStop">#fffde8</color>
 </resources>
