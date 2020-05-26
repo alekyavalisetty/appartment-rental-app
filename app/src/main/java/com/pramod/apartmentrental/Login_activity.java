@@ -10,7 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -88,6 +92,11 @@ public class Login_activity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
+                            else  if(user_role.equals("admin")){
+                                Intent intent = new Intent(Login_activity.this, AdminDashboard_activity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                             else  {
                                 Intent intent = new Intent(Login_activity.this, SelectionScreen_activity.class);
                                 startActivity(intent);
@@ -137,24 +146,21 @@ public class Login_activity extends AppCompatActivity {
                     String email = mLoginEmail.getText().toString();
                     String password = mLoginPassword.getText().toString();
 
-                    if(email.equals("user") && password.equals("123456"))
-                    {
-                        Intent userIntent = new Intent(Login_activity.this, UserDashboard_activity.class);
-                        userIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(userIntent);
-                    }
-                    else if(email.equals("renter") && password.equals("123456"))
-                    {
-                        Intent renterIntent = new Intent(Login_activity.this, RenterDashboard_activity.class);
-                        renterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(renterIntent);
-                    }
-                    else if(email.equals("admin") && password.equals("123456")){
+                    mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Login_activity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        Intent adminIntent = new Intent(Login_activity.this, AdminDashboard_activity.class);
-                        adminIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(adminIntent);
-                    }
+                            if(!task.isSuccessful()){
+                                Toast.makeText(Login_activity.this, "Wrong credentials. Please try again.", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(Login_activity.this, "Successfully signed in...", Toast.LENGTH_SHORT).show();
+                                showSelectionScreen();
+                            }
+                        }
+                    });
+
                 }
             }
 
@@ -162,4 +168,26 @@ public class Login_activity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mFirebaseAuth.addAuthStateListener(firebaseAuthStateListener);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mFirebaseAuth.removeAuthStateListener(firebaseAuthStateListener);
+        finish();
+    }
+
+    private void showSelectionScreen() {
+        Intent intent = new Intent(Login_activity.this, SelectionScreen_activity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
+
