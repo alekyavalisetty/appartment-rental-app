@@ -56,7 +56,18 @@ public class ForgetPassword_activity extends AppCompatActivity {
                     return;
                 }
 
-               
+                mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ForgetPassword_activity.this, "Check your email.", Toast.LENGTH_SHORT).show();
+                            mUserEmail.getText().clear();
+                        } else {
+                            Toast.makeText(ForgetPassword_activity.this, "Email id is not registered.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+                });
             }
         });
 
