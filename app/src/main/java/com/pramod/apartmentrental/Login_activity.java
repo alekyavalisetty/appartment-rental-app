@@ -80,25 +80,16 @@ public class Login_activity extends AppCompatActivity {
 
                             user_role = dataSnapshot.child("role").getValue(String.class);
 
-                            if(user_role.equals("user"))
+                            if(user_role.equals("user")||user_role.equals("renter"))
                             {
-                                Intent intent = new Intent(Login_activity.this, UserDashboard_activity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else if(user_role.equals("renter"))
-                            {
-                                Intent intent = new Intent(Login_activity.this, RenterDashboard_activity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else  if(user_role.equals("admin")){
-                                Intent intent = new Intent(Login_activity.this, AdminDashboard_activity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else  {
                                 Intent intent = new Intent(Login_activity.this, SelectionScreen_activity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else if(user_role.equals("admin")){
+                                Intent intent = new Intent(Login_activity.this, AdminDashboard_activity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
                             }
@@ -117,7 +108,6 @@ public class Login_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login_activity.this, Signup_activity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -185,6 +175,7 @@ public class Login_activity extends AppCompatActivity {
 
     private void showSelectionScreen() {
         Intent intent = new Intent(Login_activity.this, SelectionScreen_activity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
