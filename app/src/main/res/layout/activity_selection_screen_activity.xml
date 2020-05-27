@@ -15,7 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Please select from the following"
+            android:text="Rental Apartments provides a platform to search nearest apartment rentals or post new rentals. Please select from the following. "
+            android:layout_margin="16dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="26sp"
             android:id="@+id/tv_description"/>
 
         <Button
