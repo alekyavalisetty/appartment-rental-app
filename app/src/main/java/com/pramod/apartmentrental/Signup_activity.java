@@ -101,7 +101,8 @@ public class Signup_activity extends AppCompatActivity {
         mBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent i = new Intent(Signup_activity.this, Login_activity.class);
+                startActivity(i);
             }
         });
 
@@ -156,6 +157,7 @@ public class Signup_activity extends AppCompatActivity {
 
                             final Map userDetails = new HashMap<>();
 
+                            userDetails.put("photo","");
                             if(task.isSuccessful()){
 
                                 String currentUserId = mFirebaseAuth.getCurrentUser().getUid();
@@ -220,6 +222,7 @@ public class Signup_activity extends AppCompatActivity {
                                 userDetails.put("role",role);
                                 userDetails.put("phone",phone);
 
+
                                 currentUserDbReference.updateChildren(userDetails);
                                 Toast.makeText(Signup_activity.this, "Sign up is successful. Redirecting to selection screen", Toast.LENGTH_SHORT).show();
 
@@ -235,8 +238,9 @@ public class Signup_activity extends AppCompatActivity {
             }
         });
 
-
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
