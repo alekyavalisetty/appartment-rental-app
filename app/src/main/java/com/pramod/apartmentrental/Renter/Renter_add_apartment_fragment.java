@@ -1,11 +1,19 @@
 package com.pramod.apartmentrental.Renter;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +32,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pramod.apartmentrental.Login_activity;
 import com.pramod.apartmentrental.R;
+
+import java.util.List;
+import java.util.Locale;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +54,7 @@ public class Renter_add_apartment_fragment extends Fragment {
     private ImageView listingImage;
     String imageUrl;
 
-    EditText listingName, listingDescription,  listingParking, listingPrice, listingLocation1;
+    EditText listingName, listingDescription,  listingPrice, listingLocation1;
 
     EditText listingBathrooms, listingBedrooms;
     ImageButton bedAdd, bedRemove, bathAdd, bathRemove, getLocation;
@@ -82,6 +96,33 @@ public class Renter_add_apartment_fragment extends Fragment {
 
         mListingDatabase = FirebaseDatabase.getInstance().getReference().child("listings");
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+
+
+        listingName = view.findViewById(R.id.listing_name);
+        listingDescription = view.findViewById(R.id.listing_description);
+        listingLocation1 = view.findViewById(R.id.listing_location1);
+
+        listingLocation = view.findViewById(R.id.listing_location);
+        listingPrice = view.findViewById(R.id.listing_price);
+        listingImage = view.findViewById(R.id.listing_image);
+        getLocation = view.findViewById(R.id.button_get_location);
+
+
+        //to select image from galary.
+        listingImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //tells the app to go outside the app and not from the app
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
+
+            }
+        });
+
+
+       
 
     }
 }
