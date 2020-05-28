@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="150dp"
+    android:layout_height="250dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="4dp"
+    android:clipToPadding="false"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
+    android:paddingBottom="15dp"
+    >
+
+
+
+    <LinearLayout
+        android:background="@drawable/bottom_border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/viewListing"
+        >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:src="@drawable/ic_home"
+                android:id="@+id/listImageApartment"
+                android:scaleType="centerCrop"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Listing Name"
+             android:gravity="center"
+                android:id="@+id/listNameApartment"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Listing Id"
+                android:layout_gravity="center"
+                android:id="@+id/listIdApartment"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description: "
+                android:textStyle="italic"
+                android:layout_gravity="center"
+                android:id="@+id/listDescriptionApartment"
+                android:textSize="17sp"
+                android:padding="5dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Listing Price"
+               android:padding="6dp"
+                android:layout_gravity="center"
+                android:id="@+id/listPriceApartment"
+                android:textSize="15sp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+        </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>
