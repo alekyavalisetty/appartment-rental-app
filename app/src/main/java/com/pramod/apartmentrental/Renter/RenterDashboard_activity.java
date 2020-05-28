@@ -16,6 +16,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pramod.apartmentrental.Login_activity;
 import com.pramod.apartmentrental.R;
+import com.pramod.apartmentrental.Renter.home_listings.Renter_home_fragment;
+import com.pramod.apartmentrental.Renter.my_listings.Renter_my_listings;
 
 public class RenterDashboard_activity extends AppCompatActivity {
 
