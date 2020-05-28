@@ -1,4 +1,4 @@
-package com.pramod.apartmentrental.Renter;
+package com.pramod.apartmentrental.Renter.home_listings;
 
 import android.os.Bundle;
 
