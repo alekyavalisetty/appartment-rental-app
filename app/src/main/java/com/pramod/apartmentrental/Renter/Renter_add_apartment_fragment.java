@@ -175,9 +175,6 @@ public class Renter_add_apartment_fragment extends Fragment {
 
 
         postButton.setOnClickListener(new View.OnClickListener() {
-                ShowDialog showDialog = new ShowDialog();
-getActivity()
-                showDialog.show(getSupportFragmentManager(),.
             @Override
             public void onClick(View view) {
 
@@ -229,14 +226,76 @@ getActivity()
                     listingInfo.put("listing_location",aptLocation);
                     listingInfo.put("listing_location1",aptLocation1);
                     listingInfo.put("listing_price",aptPrice);
-                    listingInfo.put("listing_owner_id",currentUId);
+                    listingInfo.put("listing_renter_id",currentUId);
                     listingInfo.put("listing_city", city);
                     listingInfo.put("listing_latitude",latitude);
                     listingInfo.put("listing_longitude", longitude);
 
 
 
-                   
+                    //Insert current listing id to the current user ID
+                    mUserDatabase.child(currentUId).child("listings").child(key).child("listID").setValue(key);
+                    mListingDatabase.child(key).updateChildren(listingInfo);
+
+                    if (resultUri != null) {
+
+                        StorageReference filepath = FirebaseStorage.getInstance().getReference().child("listing_image").child(currentUId);
+
+                        Bitmap bitmap = null;
+
+                        try {
+                            bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplication().getContentResolver(), resultUri);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        //tomake the image small size
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+
+                        byte[] data = baos.toByteArray();
+
+                        //uploading the image
+                        UploadTask uploadTask = filepath.putBytes(data);
+
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                getActivity().finish();
+                            }
+                        });
+
+                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                if (taskSnapshot.getMetadata() != null) {
+                                    if (taskSnapshot.getMetadata().getReference() != null) {
+                                        Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                                        result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                imageUrl = uri.toString();
+
+                                                Map listingInfo = new HashMap();
+                                                listingInfo.put("listing_image", imageUrl);
+                                                mListingDatabase.child(key).updateChildren(listingInfo);
+                                            }
+                                        });
+
+                                    }
+                                }
+
+                                currentRefreshFragment(Renter_add_apartment_fragment.this);
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent i = new Intent(getActivity(), RenterDashboard_activity.class);
+                                        startActivity(i);
+                                    }
+                                },1000);
+                            }
+                        });
 
                     } else {
 
@@ -245,7 +304,9 @@ getActivity()
                         listingInfo.put("listing_image", imageUrl);
                         mListingDatabase.child(key).updateChildren(listingInfo);
                     }
-                } "Posting Dialog");
+                }
+                ShowDialog showDialog = new ShowDialog();
+                showDialog.show(getActivity().getSupportFragmentManager(), "Posting Dialog");
 
             }
         });
