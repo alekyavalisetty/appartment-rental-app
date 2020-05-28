@@ -1,15 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Renter.Renter_add_apartment_fragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Renter.Renter_add_apartment_fragment"
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RENTER ADD APARTMENT"
-        android:layout_centerInParent="true"
-        android:textSize="32sp"/>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_margin="20dp"
+            android:background="@color/white"
+            android:elevation="5dp"
+            app:cardCornerRadius="8dp"
+            android:id="@+id/materialCardView"
+            android:layout_centerVertical="true"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bottom_border">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    android:gravity="center">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="105dp"
+                        android:layout_height="105dp"
+                        app:cardCornerRadius="250dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/ic_home"
+                                android:id="@+id/listing_image"
+                                android:scaleType="centerCrop"
+                                />
+
+                        </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Advertisment Name"
+                        android:focusable="auto"
+                        android:id="@+id/listing_name"
+                        android:layout_margin="10dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Description"
+                        android:gravity="top|left"
+                        android:focusable="auto"
+                        android:scrollbars="vertical"
+                        android:id="@+id/listing_description"
+                        android:layout_margin="10dp"
+                        />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Parking details"
+                        android:focusable="auto"
+                        android:scrollbars="vertical"
+                        android:gravity="top|left"
+                        android:id="@+id/listing_parking"
+                        android:layout_margin="10dp"
+                        android:maxLength="100"/>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+
+                    <AutoCompleteTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Address 1 (Required)"
+                        android:focusable="auto"
+                        android:inputType="textAutoComplete|textAutoCorrect"
+                        android:imeOptions="actionSearch"
+                        android:id="@+id/listing_location"
+                        android:layout_margin="10dp"
+                        android:enabled="true"
+                        android:layout_weight="0.8"
+                        android:completionHint="Select the address of your listing"
+                        />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button_get_location"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/ic_my_location"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address 2 (Optional)"
+                        android:focusable="auto"
+                        android:scrollbars="vertical"
+                        android:gravity="top|left"
+                        android:id="@+id/listing_location1"
+                        android:layout_margin="10dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Price"
+                        android:focusable="auto"
+                        android:scrollbars="vertical"
+                        android:gravity="top|left"
+                        android:id="@+id/listing_price"
+                        android:layout_margin="10dp"
+                        android:inputType="numberDecimal" />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp">
+
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button_post_ad"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="Post Ad"
+                        android:background="@drawable/button_design"
+                        />
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+</ScrollView>
