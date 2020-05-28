@@ -94,5 +94,61 @@ public class Renter_my_listings extends Fragment {
 
     }
 
-   
+    private ArrayList<RenterApartmentObject> resultListings= new ArrayList<RenterApartmentObject>();
+
+    private void FetchListingInformation(final String key) {
+
+
+        DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
+
+        listDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()) {
+
+
+                    String listingname = "";
+                    String listingimageurl = "";
+                    String listingdescription = "";
+                    String listingprice = "";
+
+
+                    if (dataSnapshot.child("listing_name").getValue() != null) {
+                        listingname = dataSnapshot.child("listing_name").getValue().toString();
+                    }
+
+                    if (dataSnapshot.child("listing_description").getValue() != null) {
+                        listingdescription = dataSnapshot.child("listing_description").getValue().toString();
+                    }
+
+                    if (dataSnapshot.child("listing_price").getValue() != null) {
+                        listingprice = dataSnapshot.child("listing_price").getValue().toString();
+                    }
+
+                    if (!dataSnapshot.child("listing_image").getValue().equals("default")) {
+                        listingimageurl = dataSnapshot.child("listing_image").getValue().toString();
+                    }
+                    else
+                    {
+                        listingimageurl = "default";
+                    }
+
+                    RenterApartmentObject obj = new RenterApartmentObject(key, listingname, listingdescription, listingprice, listingimageurl);
+                    resultListings.add(obj);
+                    mListingAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private List<RenterApartmentObject> getDataSetListings() {
+        return resultListings;
+    }
 }
