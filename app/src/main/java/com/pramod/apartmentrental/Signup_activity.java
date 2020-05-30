@@ -125,9 +125,9 @@ public class Signup_activity extends AppCompatActivity {
                 if (TextUtils.isEmpty(mName.getText().toString())) {
                     mName.setError("Please enter your Name");
                 }
-                else if(TextUtils.isEmpty(mEmail.getText().toString()))
+                else if(TextUtils.isEmpty(mEmail.getText().toString())||!mEmail.getText().toString().contains("@"))
                 {
-                    mEmail.setError("Please enter your Email ID");
+                    mEmail.setError("Please valid Email ID");
                 }
                 else if (TextUtils.isEmpty(mPassword.getText().toString())) {
                     mPassword.setError("Please enter your password");
@@ -144,12 +144,11 @@ public class Signup_activity extends AppCompatActivity {
                 else {
 
                     final String name = mName.getText().toString();
-                    final String email = mEmail.getText().toString();
+                    final String email = mEmail.getText().toString().trim();
                     final String password = mPassword.getText().toString();
                     final String phone = mPhone.getText().toString();
                     role = mSpinner.getSelectedItem().toString().trim();
-                    //Database Registration Query
-                    checkIfEmailAlreadyExists(email);
+
 
                     mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -227,6 +226,7 @@ public class Signup_activity extends AppCompatActivity {
                                 Toast.makeText(Signup_activity.this, "Sign up is successful. Redirecting to selection screen", Toast.LENGTH_SHORT).show();
 
                                 Intent i = new Intent(Signup_activity.this, SelectionScreen_activity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                                 finish();
 
@@ -257,7 +257,7 @@ public class Signup_activity extends AppCompatActivity {
 
     private void checkIfEmailAlreadyExists(String email) {
 
-        mFirebaseAuth.fetchSignInMethodsForEmail(this.mEmail.getText().toString())
+        mFirebaseAuth.fetchSignInMethodsForEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                     @Override
                     public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
@@ -274,7 +274,12 @@ public class Signup_activity extends AppCompatActivity {
                             mEmail.setError("Email is already registered. Try another one.");
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mEmail.setError("Invalid Email! Try again ");
+            }
+        });
 
     }
 }
