@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -75,12 +76,13 @@ public class Renter_my_listings extends Fragment {
 
                     for(DataSnapshot showlist : dataSnapshot.getChildren()){
 
-                        FetchListingInformation(showlist.getKey());
+                        GetApartmentListingInfo(showlist.getKey());
                     }
 
                 }
                 else
                 {
+                    Toast.makeText(getContext(), "It's Empty! Add some Apartments!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -96,7 +98,7 @@ public class Renter_my_listings extends Fragment {
 
     private ArrayList<RenterApartmentObject> resultListings= new ArrayList<RenterApartmentObject>();
 
-    private void FetchListingInformation(final String key) {
+    private void GetApartmentListingInfo(final String key) {
 
 
         DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
