@@ -111,7 +111,38 @@ public class User_home_fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                if(dataSnapshot.exists()) {
 
+                    String listingname = "";
+                    String listingimageurl = "";
+                    String listingdescription = "";
+                    String listingprice = "";
+                    String listingrenter = dataSnapshot.child("listing_renter_id").getValue().toString();
+
+                    if(!listingrenter.equals(currentUserID)) {
+                        if (dataSnapshot.child("listing_name").getValue() != null) {
+                            listingname = dataSnapshot.child("listing_name").getValue().toString();
+                        }
+
+                        if (dataSnapshot.child("listing_description").getValue() != null) {
+                            listingdescription = dataSnapshot.child("listing_description").getValue().toString();
+                        }
+
+                        if (dataSnapshot.child("listing_price").getValue() != null) {
+                            listingprice = dataSnapshot.child("listing_price").getValue().toString();
+                        }
+
+                        if (!dataSnapshot.child("listing_image").getValue().equals("default")) {
+                            listingimageurl = dataSnapshot.child("listing_image").getValue().toString();
+                        } else {
+                            listingimageurl = "default";
+                        }
+
+                        User_home_object obj = new User_home_object(listingname, listingdescription, listingprice, listingimageurl);
+                        resultListings.add(obj);
+                        ListingCardItemAdapter.notifyDataSetChanged();
+                    }
+                }
             }
 
             @Override
