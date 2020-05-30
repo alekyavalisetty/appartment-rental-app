@@ -21,12 +21,6 @@ public class Renter_listing_Adapter extends RecyclerView.Adapter<Renter_listing_
     private List<RenterApartmentObject> apartmentList;
     private Context context;
 
-    private FirebaseAuth mAuth;
-    private String currentUserID;
-
-    private DatabaseReference listingDb = FirebaseDatabase.getInstance().getReference().child("listing");
-    private DatabaseReference usersDb = FirebaseDatabase.getInstance().getReference().child("users");
-
     //passes information between listingActivity
     public Renter_listing_Adapter(List<RenterApartmentObject> listingsList, Context context){
 

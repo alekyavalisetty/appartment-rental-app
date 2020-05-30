@@ -76,6 +76,7 @@ public class Renter_my_listings extends Fragment {
 
                     for(DataSnapshot showlist : dataSnapshot.getChildren()){
 
+
                         GetApartmentListingInfo(showlist.getKey());
                     }
 
