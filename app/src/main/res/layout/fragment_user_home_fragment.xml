@@ -12,6 +12,9 @@ tools:context=".User.AvailableApartments.User_home_fragment"
 
 
     <androidx.core.widget.NestedScrollView
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
