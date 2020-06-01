@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.R;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +29,12 @@ import java.util.List;
 public class User_home_fragment extends Fragment {
 
 
-    ImageView listImage;
     String  currentUserID;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter ListingCardItemAdapter;
     private RecyclerView.LayoutManager mListingLayoutManager;
+
+
 
     public User_home_fragment() {
         // Required empty public constructor
@@ -66,8 +68,6 @@ public class User_home_fragment extends Fragment {
 
         mListingLayoutManager = new GridLayoutManager(getContext(),2);
         mRecyclerView.setLayoutManager(mListingLayoutManager);
-
-        listImage = view.findViewById(R.id.listImageApartment);
 
         ListingCardItemAdapter = new User_home_Adapter(getListDataSetListings(), getActivity());
         mRecyclerView.setAdapter(ListingCardItemAdapter);

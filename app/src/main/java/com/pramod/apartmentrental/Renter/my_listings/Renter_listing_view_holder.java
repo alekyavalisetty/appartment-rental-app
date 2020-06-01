@@ -18,10 +18,8 @@ public class Renter_listing_view_holder extends ViewHolder implements OnClickLis
 
     public TextView mListId, mListName, mListDescription, mListPrice;
     public ImageView mListImage;
-    Context context;
     private FirebaseAuth mAuth;
     private String currentUserID,listingID;
-
 
 
     public Renter_listing_view_holder(@NonNull View itemView) {
@@ -34,21 +32,12 @@ public class Renter_listing_view_holder extends ViewHolder implements OnClickLis
         mListDescription = itemView.findViewById(R.id.listDescription);
         mListPrice = itemView.findViewById(R.id.listPrice);
         mListImage = itemView.findViewById(R.id.listImage);
-        mAuth = FirebaseAuth.getInstance();
-        currentUserID = mAuth.getCurrentUser().getUid();
 
         listingID = mListId.getText().toString();
 
 
-        mListImage.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-
     }
+
 
     @Override
     public void onClick(View view) {

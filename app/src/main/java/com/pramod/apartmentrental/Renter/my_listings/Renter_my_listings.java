@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,7 +61,6 @@ public class Renter_my_listings extends Fragment {
         mListingLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mListingLayoutManager);
 
-        listImage = getView().findViewById(R.id.listImage);
         mListingAdapter = new Renter_listing_Adapter(getDataSetListings(), getActivity());
         mRecyclerView.setAdapter(mListingAdapter);
 
@@ -71,11 +71,9 @@ public class Renter_my_listings extends Fragment {
         listDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 if(dataSnapshot.exists()){
 
                     for(DataSnapshot showlist : dataSnapshot.getChildren()){
-
 
                         GetApartmentListingInfo(showlist.getKey());
                     }
@@ -85,6 +83,7 @@ public class Renter_my_listings extends Fragment {
                 {
                     Toast.makeText(getContext(), "It's Empty! Add some Apartments!", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override

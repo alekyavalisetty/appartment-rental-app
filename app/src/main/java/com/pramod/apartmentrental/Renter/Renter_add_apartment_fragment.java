@@ -31,9 +31,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +53,8 @@ import com.pramod.apartmentrental.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -62,17 +71,16 @@ public class Renter_add_apartment_fragment extends Fragment {
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
     private DatabaseReference mListingDatabase,mUserDatabase;
-    private String currentUId, aptName, aptLocation, aptParkingDetails, aptDescription, aptPrice, key, aptLocation1 = " ";
+    EditText listingName, listingDescription,  listingPrice, listingLocation1,listingLocation;
     private Double latitude= null, longitude= null;
 
     private Uri resultUri;
     private ImageView listingImage;
     String imageUrl;
-
-    EditText listingName, listingDescription,  listingPrice, listingLocation1;
+    private String currentUId, aptName, aptLocation, aptDescription, aptPrice, key, aptLocation1 = " ";
     ImageButton getLocation;
     Button postButton;
-    AutoCompleteTextView listingLocation;
+
 
     private String city, address;
 
@@ -94,6 +102,11 @@ public class Renter_add_apartment_fragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
+
+        Places.initialize(getContext(), "AIzaSyDM14aZbu5rVipuAmAZ5ZI24VZ6HWTh0BI");
+        PlacesClient placesClient = Places.createClient(getContext());
+
+
 
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -121,6 +134,19 @@ public class Renter_add_apartment_fragment extends Fragment {
         getLocation = view.findViewById(R.id.button_get_location);
         postButton = getActivity().findViewById(R.id.button_post_ad);
 
+
+        listingLocation.setFocusable(false);
+        listingLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.NAME);
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY,fieldList).build(getContext());
+
+                startActivityForResult(intent, 100);
+
+            }
+        });
 
         //to select image from galary.
         listingImage.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +265,7 @@ public class Renter_add_apartment_fragment extends Fragment {
 
                     if (resultUri != null) {
 
-                        StorageReference filepath = FirebaseStorage.getInstance().getReference().child("listing_image").child(currentUId);
+                        StorageReference filepath = FirebaseStorage.getInstance().getReference().child("listing_image").child(key);
 
                         Bitmap bitmap = null;
 
@@ -287,13 +313,6 @@ public class Renter_add_apartment_fragment extends Fragment {
 
                                 currentRefreshFragment(Renter_add_apartment_fragment.this);
 
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent i = new Intent(getActivity(), RenterDashboard_activity.class);
-                                        startActivity(i);
-                                    }
-                                },1000);
                             }
                         });
 
@@ -324,6 +343,18 @@ public class Renter_add_apartment_fragment extends Fragment {
             resultUri = imageUri;
             listingImage.setImageURI(resultUri);
 
+        }
+
+        if(requestCode == 100 && resultCode == Activity.RESULT_OK){
+            Place place = Autocomplete.getPlaceFromIntent(data);
+
+            //Set Address in edit text
+            listingLocation.setText(place.getAddress());
+
+        }
+        else if (resultCode == AutocompleteActivity.RESULT_ERROR){
+            Status status = Autocomplete.getStatusFromIntent(data);
+            Toast.makeText(getContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
