@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.pramod.apartmentrental.Login_activity;
 import com.pramod.apartmentrental.R;
 import com.pramod.apartmentrental.User.AvailableApartments.User_home_fragment;
+import com.pramod.apartmentrental.User.Favourites.User_favourites_fragment;
 
 public class UserDashboard_activity extends AppCompatActivity {
 

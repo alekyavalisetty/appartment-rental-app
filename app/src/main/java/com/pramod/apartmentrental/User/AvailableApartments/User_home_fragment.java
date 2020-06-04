@@ -106,6 +106,7 @@ public class User_home_fragment extends Fragment {
 
     private void GetApartmentDetails(final String key) {
 
+
         DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
         listDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -138,7 +139,7 @@ public class User_home_fragment extends Fragment {
                             listingimageurl = "default";
                         }
 
-                        User_home_object obj = new User_home_object(listingname, listingdescription, listingprice, listingimageurl);
+                        User_home_object obj = new User_home_object(key, listingname, listingdescription, listingprice, listingimageurl);
                         resultListings.add(obj);
                         ListingCardItemAdapter.notifyDataSetChanged();
                     }

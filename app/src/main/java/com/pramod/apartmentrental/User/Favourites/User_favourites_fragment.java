@@ -1,4 +1,4 @@
-package com.pramod.apartmentrental.User;
+package com.pramod.apartmentrental.User.Favourites;
 
 import android.os.Bundle;
 

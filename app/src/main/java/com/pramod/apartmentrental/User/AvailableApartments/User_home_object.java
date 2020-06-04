@@ -8,6 +8,14 @@ public class User_home_object {
     private String listingPrice;
     private String listingImageUrl;
 
+    public User_home_object(String listingId, String listingName, String listingDescription, String listingPrice, String listingImageUrl) {
+        this.listingId = listingId;
+        this.listingName = listingName;
+        this.listingDescription = listingDescription;
+        this.listingPrice = listingPrice;
+        this.listingImageUrl = listingImageUrl;
+    }
+
     public User_home_object(String listingName, String listingDescription, String listingPrice, String listingImageUrl) {
         this.listingName = listingName;
         this.listingDescription = listingDescription;
