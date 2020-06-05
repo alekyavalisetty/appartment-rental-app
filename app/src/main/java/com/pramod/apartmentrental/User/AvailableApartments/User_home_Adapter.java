@@ -44,12 +44,11 @@ public class User_home_Adapter extends RecyclerView.Adapter<User_home_view_holde
         holder.mListName.setText(listingsList.get(position).getListingName());
         holder.mListDescription.setText(listingsList.get(position).getListingDescription());
         holder.mListPrice.setText("Price: " +listingsList.get(position).getListingPrice() +" $");
+        holder.mListId.setText(listingsList.get(position).getListingId());
 
         if(!listingsList.get(position).getListingImageUrl().equals("default")){
             Glide.with(context).load(listingsList.get(position).getListingImageUrl()).into(holder.mListImage);
         }
-
-
 
     }
 
