@@ -27,7 +27,7 @@
             android:textStyle="bold"/>
 
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/materialCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
             </LinearLayout>
 
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
         <TextView
             android:id="@+id/back"
             android:layout_width="40dp"
