@@ -20,12 +20,13 @@ public class User_home_view_holder extends RecyclerView.ViewHolder implements Vi
 
     public User_home_view_holder(@NonNull View itemView) {
         super(itemView);
+        itemView.setOnClickListener(this);
 
         mListName = itemView.findViewById(R.id.listNameApartment);
         mListDescription = itemView.findViewById(R.id.listDescriptionApartment);
         mListPrice = itemView.findViewById(R.id.listPriceApartment);
         mListImage = itemView.findViewById(R.id.listImageApartment);
-        mListId = itemView.findViewById(R.id.listId);
+        mListId = itemView.findViewById(R.id.listIdApartment);
     }
 
 
@@ -34,11 +35,8 @@ public class User_home_view_holder extends RecyclerView.ViewHolder implements Vi
 
         Intent intent = new Intent(view.getContext(), ApartmentDetails.class);
         Bundle b = new Bundle();
-
         b.putString("listID",mListId.getText().toString());
-
         intent.putExtras(b);
-
         view.getContext().startActivity(intent);
 
     }
