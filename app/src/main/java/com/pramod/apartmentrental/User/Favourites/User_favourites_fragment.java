@@ -95,4 +95,59 @@ public class User_favourites_fragment extends Fragment {
 
     }
 
+
+    private ArrayList<User_favourites_Object> resultListings= new ArrayList<User_favourites_Object>();
+
+    private void FetchListingInformation(final String key) {
+
+        DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
+        listDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+
+
+                    String listingname = "";
+                    String listingimageurl = "";
+                    String listingdescription = "";
+                    String listingprice = "";
+
+
+                    if (dataSnapshot.child("listing_name").getValue() != null) {
+                        listingname = dataSnapshot.child("listing_name").getValue().toString();
+                    }
+
+                    if (dataSnapshot.child("listing_description").getValue() != null) {
+                        listingdescription = dataSnapshot.child("listing_description").getValue().toString();
+                    }
+
+                    if (dataSnapshot.child("listing_price").getValue() != null) {
+                        listingprice = dataSnapshot.child("listing_price").getValue().toString();
+                    }
+
+                    if (!dataSnapshot.child("listing_image").getValue().equals("default")) {
+                        listingimageurl = dataSnapshot.child("listing_image").getValue().toString();
+                    }
+                    else
+                    {
+                        listingimageurl = "default";
+                    }
+
+                    User_favourites_Object obj = new User_favourites_Object(key, listingname, listingdescription, listingprice, listingimageurl);
+                    resultListings.add(obj);
+                    mListingAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private List<User_favourites_Object> getDataSetListings() {
+        return resultListings;
+    }
 }
