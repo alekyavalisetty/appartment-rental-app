@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -142,5 +143,62 @@ public class ApartmentDetails extends AppCompatActivity {
             }
         });
 
+        getApartmentDetails();
+        getRenterDetails();
     }
+
+    private void getApartmentDetails() {
+        mListingDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+                    //get the child you want
+                    if (map.get("listing_name") != null) {
+                        l_name = map.get("listing_name").toString();
+                        listingName.setText(l_name);
+                    }
+
+                    if (map.get("listing_description") != null) {
+                        l_description = map.get("listing_description").toString();
+                        listingDescription.setText(l_description);
+                    }
+
+
+                    if (map.get("listing_price") != null) {
+                        l_price = map.get("listing_price").toString();
+                        listingPrice.setText("Rent:" + l_price + " $");
+                    }
+
+                    if (map.get("listing_location") != null) {
+                        l_location = map.get("listing_location").toString();
+                        listingLocation.setText(l_location);
+                    }
+
+
+                    if (map.get("listing_image") != "default") {
+
+                        listingURL = map.get("listing_image").toString();
+
+                        Glide.with(getApplication()).load(listingURL).into(listingImage);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private void getRenterDetails() {
+    }
+
+
 }
