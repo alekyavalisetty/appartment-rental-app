@@ -32,7 +32,6 @@ public class User_home_view_holder extends RecyclerView.ViewHolder implements Vi
 
     @Override
     public void onClick(View view) {
-
         Intent intent = new Intent(view.getContext(), ApartmentDetails.class);
         Bundle b = new Bundle();
         b.putString("listID",mListId.getText().toString());
