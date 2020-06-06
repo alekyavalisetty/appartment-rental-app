@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.R;
+
+import java.util.Map;
 
 public class ApartmentDetails extends AppCompatActivity {
 
@@ -62,19 +65,70 @@ public class ApartmentDetails extends AppCompatActivity {
         mUserDatabase =  FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
 
         contactButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+
+                 mListingDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                         Intent intent = new Intent(ApartmentDetails.this, ContactRenter.class);
+
+                         renterID = dataSnapshot.child("listing_renter_id").getValue(String.class);
+                         intent.putExtra("renter", renterID);
+                         startActivity(intent);
+
+                     }
+
+                     @Override
+                     public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                     }
+                 });
+             }
+         });
+
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+        mViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                mListingDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                Intent intent = new Intent(ApartmentDetails.this, UserDashboard_activity.class);
+                startActivity(intent);
+                finish();
+                return;
+
+            }
+        });
+
+        mSaveFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mUserFavouriteDb = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
+
+                mUserFavouriteDb.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        Intent intent = new Intent(ApartmentDetails.this, ContactRenter.class);
+                        if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
 
-                        renterID = dataSnapshot.child("listing_renter_id").getValue(String.class);
-                        intent.putExtra("renter", renterID);
-                        startActivity(intent);
+                            Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
 
+                            //get the child you want
+                            if (map.get("listing_name") != null) {
+                                l_name = map.get("listing_name").toString();
+                                listingName.setText(l_name);
+                            }
+                        }
                     }
 
                     @Override
@@ -83,28 +137,8 @@ public class ApartmentDetails extends AppCompatActivity {
                     }
                 });
 
-                mBack.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
-
-
-                mViewMap.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        Intent intent = new Intent(ApartmentDetails.this, UserDashboard_activity.class);
-                        startActivity(intent);
-                        finish();
-                        return;
-
-                    }
-                });
-
-
-
+                mUserFavouriteDb.child("favourites").child(listingID).child("listing_id").setValue(listingID);
+                Toast.makeText(ApartmentDetails.this, "Saved to your Favourites", Toast.LENGTH_SHORT).show();
             }
         });
 
