@@ -33,9 +33,8 @@ public class ApartmentDetails extends AppCompatActivity {
     Button contactButton;
     String value, renterID;
     private DatabaseReference mListingDatabase,mOwnerDatabase, mUserDatabase,mUserFavouriteDb;
-    private Double latitude, longitude;
-    private String currentUserID,listingID, l_name,l_description, l_city, l_location,
-            listingURL, l_price, l_owner_name;
+    private String currentUserID,listingID, l_name,l_description, l_location,
+            listingURL, l_price, l_renter_name;
     private Uri resultUri;
     private FirebaseAuth mAuth;
 
@@ -201,7 +200,55 @@ public class ApartmentDetails extends AppCompatActivity {
 
     private void getRenterDetails() {
 
-        
+        //To get key from database
+        mOwnerDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
+
+
+        //To get value from child
+        mOwnerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    value = map.get("listing_renter_id").toString();
+                    setRenterName(value);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private void setRenterName(String value) {
+
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(value);
+
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+                    if (map.get("name") != null) {
+                        l_renter_name = map.get("name").toString();
+                        listingOwner.setText(l_renter_name);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
