@@ -1,8 +1,10 @@
 package com.pramod.apartmentrental.User;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -198,6 +200,22 @@ public class ApartmentDetails extends AppCompatActivity {
     }
 
     private void getRenterDetails() {
+
+        
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //if the intent from activity code is 1
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+
+            final Uri imageUri = data.getData();
+            resultUri = imageUri;
+            listingImage.setImageURI(resultUri);
+        }
     }
 
 
