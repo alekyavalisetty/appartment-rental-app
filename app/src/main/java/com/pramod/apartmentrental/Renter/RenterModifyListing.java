@@ -1,5 +1,6 @@
 package com.pramod.apartmentrental.Renter;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -23,26 +25,30 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.R;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class RenterModifyListing extends AppCompatActivity {
 
     EditText listingName, listingDescription, listingLocation1, listingPrice,listingLocation;
     ImageButton  getLocation;
-    TextView editAptName, editDescription, editImage, editPrice, editLocation,editLocation1, mBack;
-    Button saveButton;
+    TextView mBack;
+    Button saveButton, deleteButton;
     private FirebaseAuth mAuth;
-    private String currentUserID,listingID, l_name,l_description, l_city, l_location,l_location1,
+    private String currentUserID,listingID, l_name,l_description, l_location,l_location1,
             listingURL, l_price,city, address;
     private Double latitude= null, longitude= null;
     private Uri resultUri;
     private ImageView listingImage;
-    private DatabaseReference mListingDatabase;
+    private DatabaseReference mListingDatabase, mUserDatabase;
 
 
     @Override
@@ -57,6 +63,8 @@ public class RenterModifyListing extends AppCompatActivity {
         //Get intent extras
         listingID =  getIntent().getExtras().getString("listID");
         mListingDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("listings").child(listingID);
+
 
         //Linking editText fields
         listingName = findViewById(R.id.listing_name);
@@ -66,18 +74,9 @@ public class RenterModifyListing extends AppCompatActivity {
         listingPrice = findViewById(R.id.listing_price);
         listingImage = findViewById(R.id.listing_image);
 
-
-        //Edit Buttons to enable editing on edit texts
-        editAptName = findViewById(R.id.edit_name);
-        editDescription = findViewById(R.id.edit_description);
-        editLocation = findViewById(R.id.edit_location);
-        editLocation1 = findViewById(R.id.edit_location1);
-        editPrice = findViewById(R.id.edit_price);
-        editImage = findViewById(R.id.edit_image);
         mBack = findViewById(R.id.back);
-        
+        deleteButton = findViewById(R.id.button_delete_ad);
         saveButton = findViewById(R.id.button_save_ad);
-        saveButton.setVisibility(View.GONE);
         getLocation = findViewById(R.id.button_get_location);
         
         //Get address using maps api
@@ -100,17 +99,109 @@ public class RenterModifyListing extends AppCompatActivity {
                 finish();
             }
         });
-        
+
+
         getApartmentDetails();
+
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteListing();
+            }
+        });
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveApartmentDetails();
+            }
+        });
+    }
+
+    private void deleteListing() {
+        mListingDatabase.removeValue();
+        mUserDatabase.removeValue();
+
+        Toast.makeText(this, "Apartment removed successfully!", Toast.LENGTH_SHORT).show();
+
+        Intent homeIntent = new Intent(RenterModifyListing.this, RenterDashboard_activity.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(homeIntent);
+    }
+
+    private void saveApartmentDetails() {
+
+
 
     }
 
     private void getApartmentDetails() {
+        mListingDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+                    //get the details of renter posted apt details
+                    if (map.get("listing_name") != null) {
+                        l_name = map.get("listing_name").toString();
+                        listingName.setText(l_name);
+                    }
+
+                    if (map.get("listing_description") != null) {
+                        l_description = map.get("listing_description").toString();
+                        listingDescription.setText(l_description);
+                    }
+
+                    if (map.get("listing_price") != null) {
+                        l_price = map.get("listing_price").toString();
+                        listingPrice.setText(l_price);
+                    }
+
+                    if (map.get("listing_location") != null) {
+                        l_location = map.get("listing_location").toString();
+                        listingLocation.setText(l_location);
+                    }
+
+                    if (map.get("listing_location1") != null) {
+                        l_location1 = map.get("listing_location1").toString();
+                        listingLocation1.setText(l_location1);
+                    }
+
+
+                    if (map.get("listing_image") != "default") {
+
+                        listingURL = map.get("listing_image").toString();
+
+                        Glide.with(getApplication()).load(listingURL).into(listingImage);
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+
+            final Uri imageUri = data.getData();
+            resultUri = imageUri;
+            listingImage.setImageURI(resultUri);
+        }
 
         if(requestCode == 100 && resultCode == Activity.RESULT_OK){
             Place place = Autocomplete.getPlaceFromIntent(data);
