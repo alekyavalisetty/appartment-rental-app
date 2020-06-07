@@ -58,6 +58,7 @@ public class User_account_fragment extends Fragment {
 
         signoutOwner = getView().findViewById(R.id.signout);
         changeRole = getView().findViewById(R.id.changeRole);
+
         mAccountName = getView().findViewById(R.id.account_name);
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUId);

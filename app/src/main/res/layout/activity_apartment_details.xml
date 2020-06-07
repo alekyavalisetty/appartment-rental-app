@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_margin="10dp"
-                        android:hint="Owner Name"
+                        android:hint="Renter Name"
                         android:textSize="18dp"/>
 
                 </LinearLayout>

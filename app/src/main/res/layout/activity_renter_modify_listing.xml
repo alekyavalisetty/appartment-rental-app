@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:text="Advertisment Name"
+                        android:text="Apartment Name"
                         />
                 </LinearLayout>
                 <LinearLayout

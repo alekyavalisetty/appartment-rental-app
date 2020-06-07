@@ -28,11 +28,11 @@ import java.util.Map;
 public class ApartmentDetails extends AppCompatActivity {
 
     TextView listingName, listingDescription, listingLocation,
-            listingPrice,mBack, listingOwner, mViewMap;
+            listingPrice,mBack, listingRenter, mViewMap;
     ImageView mSaveFavourite,listingImage;
     Button contactButton;
     String value, renterID;
-    private DatabaseReference mListingDatabase,mOwnerDatabase, mUserDatabase,mUserFavouriteDb;
+    private DatabaseReference mListingDatabase, mRenterDatabase, mUserDatabase,mUserFavouriteDb;
     private String currentUserID,listingID, l_name,l_description, l_location,
             listingURL, l_price, l_renter_name;
     private Uri resultUri;
@@ -55,7 +55,7 @@ public class ApartmentDetails extends AppCompatActivity {
         listingLocation = findViewById(R.id.listing_location);
 
         listingPrice = findViewById(R.id.listing_price);
-        listingOwner = findViewById(R.id.ownerName);
+        listingRenter = findViewById(R.id.ownerName);
         mBack = findViewById(R.id.back);
         mSaveFavourite= findViewById(R.id.favourite_tenants);
         mViewMap= findViewById(R.id.view_in_map);
@@ -204,11 +204,11 @@ public class ApartmentDetails extends AppCompatActivity {
     private void getRenterDetails() {
 
         //To get key from database
-        mOwnerDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
+        mRenterDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
 
 
         //To get value from child
-        mOwnerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mRenterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
@@ -242,7 +242,7 @@ public class ApartmentDetails extends AppCompatActivity {
 
                     if (map.get("name") != null) {
                         l_renter_name = map.get("name").toString();
-                        listingOwner.setText(l_renter_name);
+                        listingRenter.setText(l_renter_name);
                     }
                 }
             }
