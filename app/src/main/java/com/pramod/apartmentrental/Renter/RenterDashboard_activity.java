@@ -18,36 +18,13 @@ import com.pramod.apartmentrental.Login_activity;
 import com.pramod.apartmentrental.R;
 import com.pramod.apartmentrental.Renter.home_listings.Renter_home_fragment;
 import com.pramod.apartmentrental.Renter.my_listings.Renter_my_listings;
+import com.pramod.apartmentrental.User.User_account_fragment;
 
 public class RenterDashboard_activity extends AppCompatActivity {
 
     private BottomNavigationView UserNavigation;
     private FirebaseAuth mFirebaseAuth;
     MaterialToolbar materialToolbar;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_renter_dashboard_activity);
-
-        UserNavigation = findViewById(R.id.bottom_nav_view_renter);
-        materialToolbar = findViewById(R.id.toolbar);
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-
-        setSupportActionBar(materialToolbar);
-        UserNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
-        UserNavigation.setSelectedItemId(R.id.home);
-
-
-    }
-
-    private void signOut() {
-        mFirebaseAuth.signOut();
-        Intent loginIntent = new Intent(this, Login_activity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationClickListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,12 +42,35 @@ public class RenterDashboard_activity extends AppCompatActivity {
                     getFragment(new Renter_add_apartment_fragment());
                     return true;
                 case R.id.account_Renter:
-                    getFragment(new Renter_account_fragment());
+                    getFragment(new User_account_fragment());
                     return true;
             }
             return false;
         }
     };
+
+    private void signOut() {
+        mFirebaseAuth.signOut();
+        Intent loginIntent = new Intent(this, Login_activity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_renter_dashboard_activity);
+
+        UserNavigation = findViewById(R.id.bottom_nav_view_renter);
+        materialToolbar = findViewById(R.id.toolbar);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        materialToolbar.setTitle("RENTER DASHBOARD");
+        UserNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
+        UserNavigation.setSelectedItemId(R.id.account_Renter);
+
+
+    }
 
     private void getFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -78,18 +78,6 @@ public class RenterDashboard_activity extends AppCompatActivity {
         transaction.commit();
     }
 
-    //Toolbar options
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
-        switch (id){
-            case R.id.toolbar_signout:
-                Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show();
-                signOut();
-                return true;
-        }
-        return true;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

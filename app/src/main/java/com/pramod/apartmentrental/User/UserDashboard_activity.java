@@ -37,8 +37,9 @@ public class UserDashboard_activity extends AppCompatActivity {
 
         UserNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
         //Initialise user home fragment
-        setSupportActionBar(materialToolbar);
         UserNavigation.setSelectedItemId(R.id.home);
+
+        materialToolbar.setTitle("USER DASHBOARD");
 
     }
 
@@ -78,17 +79,6 @@ public class UserDashboard_activity extends AppCompatActivity {
         transaction.commit();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
-        switch (id){
-            case R.id.toolbar_signout:
-                Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show();
-                signOut();
-                return true;
-        }
-        return true;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

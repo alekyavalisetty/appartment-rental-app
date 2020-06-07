@@ -47,50 +47,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
                     android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="105dp"
-                        android:layout_height="105dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="250dp">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center">
 
                             <ImageView
                                 android:id="@+id/listing_image"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="170dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_home"
                                 />
 
-                            <TextView
-                                android:id="@+id/edit_image"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="80dp"
-                                android:layout_marginTop="30dp"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:background="@drawable/ic_edit_black_24dp"
-                                />
-
-
-                        </androidx.cardview.widget.CardView>
-                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -113,20 +86,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="0.7"
-                        android:background="@color/transparent"
                         android:focusable="auto"
                         android:textColor="#000"
                         android:visibility="visible"
-                        />
-
-
-                    <TextView
-                        android:id="@+id/edit_name"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_edit_black_24dp"
                         />
 
 
@@ -158,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="0.7"
-                        android:background="@color/transparent"
+
                         android:focusable="auto"
                         android:gravity="top|left"
                         android:scrollbars="vertical"
@@ -166,14 +128,6 @@
                         android:visibility="visible"
                         />
 
-                    <TextView
-                        android:id="@+id/edit_description"
-                        android:layout_width="wrap_content"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_edit_black_24dp"
-                        />
 
                 </LinearLayout>
 
@@ -198,23 +152,13 @@
 
                     <EditText
                         android:id="@+id/listing_location"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:layout_weight="0.9"
-                        android:background="@color/transparent"
                         android:focusable="auto"
                         android:textColor="#000"/>
 
 
-                    <TextView
-                        android:id="@+id/edit_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_edit_black_24dp"
-                        />
 
                 </LinearLayout>
 
@@ -242,22 +186,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:layout_weight="0.7"
-                        android:background="@color/transparent"
                         android:focusable="auto"
                         android:gravity="top|left"
-                        android:scrollbars="vertical"
                         android:textColor="#000"/>
-
-                    <TextView
-                        android:id="@+id/edit_location1"
-                        android:layout_width="wrap_content"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_edit_black_24dp"
-                        />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -284,22 +215,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:layout_weight="0.7"
-                        android:background="@color/transparent"
                         android:focusable="auto"
-                        android:gravity="top|left"
                         android:inputType="numberDecimal"
                         android:scrollbars="vertical"
                         android:textColor="#000"/>
-
-                    <TextView
-                        android:id="@+id/edit_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_edit_black_24dp"
-                        />
 
                 </LinearLayout>
 
@@ -314,6 +233,16 @@
                     android:orientation="horizontal"
                     android:padding="5dp">
 
+                    <Button
+                        android:id="@+id/button_delete_ad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/white"
+                        android:text="Delete"
+                        android:textColor="@color/colorPrimary"
+                        />
 
                     <Button
                         android:id="@+id/button_save_ad"

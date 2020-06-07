@@ -30,9 +30,7 @@ public class AdminDashboard_activity extends AppCompatActivity {
         materialToolbar = findViewById(R.id.toolbar);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-
-        setSupportActionBar(materialToolbar);
-
+        materialToolbar.setTitle("ADMIN DASHBOARD");
 
     }
 
@@ -44,17 +42,6 @@ public class AdminDashboard_activity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
-        switch (id){
-            case R.id.toolbar_signout:
-                Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show();
-                signOut();
-                return true;
-        }
-        return true;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -3,16 +3,4 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
-
-    <item
-        android:id="@+id/toolbar_signout"
-        android:title="Sign out"
-        android:orderInCategory="1"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_logout"
-        />
-
-
-
 </menu>

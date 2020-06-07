@@ -12,6 +12,7 @@
         android:background="@color/colorPrimaryDark"
         app:titleTextColor="@color/white"
         app:subtitleTextColor="@color/white"
+        android:textAlignment="center"
         app:menu="@menu/toolbar_menu"
         android:id="@+id/toolbar" />
 
