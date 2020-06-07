@@ -307,8 +307,6 @@ public class Renter_add_apartment_fragment extends Fragment {
                                     }
                                 }
 
-                                currentRefreshFragment(Renter_add_apartment_fragment.this);
-
                             }
                         });
 
@@ -322,6 +320,7 @@ public class Renter_add_apartment_fragment extends Fragment {
                 }
                 ShowDialog showDialog = new ShowDialog();
                 showDialog.show(getActivity().getSupportFragmentManager(), "Posting Dialog");
+                currentRefreshFragment(Renter_add_apartment_fragment.this);
 
             }
         });
