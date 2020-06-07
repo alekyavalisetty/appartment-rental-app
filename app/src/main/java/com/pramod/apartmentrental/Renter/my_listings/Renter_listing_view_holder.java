@@ -12,13 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pramod.apartmentrental.R;
+import com.pramod.apartmentrental.Renter.RenterModifyListing;
 
 public class Renter_listing_view_holder extends ViewHolder implements OnClickListener{
 
 
     public TextView mListId, mListName, mListDescription, mListPrice;
     public ImageView mListImage;
-    private FirebaseAuth mAuth;
     private String currentUserID,listingID;
 
 
@@ -42,11 +42,11 @@ public class Renter_listing_view_holder extends ViewHolder implements OnClickLis
     @Override
     public void onClick(View view) {
 
-     /* Intent intent = new Intent(view.getContext(), ModifyListingDetails.class);
+      Intent intent = new Intent(view.getContext(), RenterModifyListing.class);
         Bundle b = new Bundle();
         b.putString("listID",mListId.getText().toString());
         intent.putExtras(b);
-        view.getContext().startActivity(intent);*/
+        view.getContext().startActivity(intent);
     }
 
 

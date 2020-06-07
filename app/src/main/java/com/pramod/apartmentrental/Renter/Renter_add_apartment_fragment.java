@@ -104,10 +104,6 @@ public class Renter_add_apartment_fragment extends Fragment {
         currentUId = mAuth.getCurrentUser().getUid();
 
         Places.initialize(getContext(), "AIzaSyDM14aZbu5rVipuAmAZ5ZI24VZ6HWTh0BI");
-        PlacesClient placesClient = Places.createClient(getContext());
-
-
-
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
