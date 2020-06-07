@@ -34,15 +34,6 @@ public class AdminDashboard_activity extends AppCompatActivity {
 
     }
 
-    private void signOut() {
-        mFirebaseAuth.signOut();
-        Intent loginIntent = new Intent(this, Login_activity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
-        finish();
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);

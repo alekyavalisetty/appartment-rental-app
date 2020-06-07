@@ -53,12 +53,14 @@ public class ApartmentDetails extends AppCompatActivity {
         listingName = findViewById(R.id.listing_name);
         listingDescription = findViewById(R.id.listing_description);
         listingLocation = findViewById(R.id.listing_location);
+        listingLocation.setVisibility(View.GONE);
         listingPrice = findViewById(R.id.listing_price);
         listingOwner = findViewById(R.id.ownerName);
         mBack = findViewById(R.id.back);
         mSaveFavourite= findViewById(R.id.favourite_tenants);
         mViewMap= findViewById(R.id.view_in_map);
         listingImage = findViewById(R.id.listing_image);
+
         contactButton = findViewById(R.id.contact_owner);
 
 
@@ -66,7 +68,7 @@ public class ApartmentDetails extends AppCompatActivity {
         mListingDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
         mUserDatabase =  FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
 
-        contactButton.setOnClickListener(new View.OnClickListener() {
+       /* contactButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
 
@@ -88,7 +90,7 @@ public class ApartmentDetails extends AppCompatActivity {
                      }
                  });
              }
-         });
+         });*/
 
 
         mBack.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +186,7 @@ public class ApartmentDetails extends AppCompatActivity {
 
                         listingURL = map.get("listing_image").toString();
 
-                        Glide.with(getApplication()).load(listingURL).into(listingImage);
+                        Glide.with(getApplication()).load(listingURL).placeholder(R.drawable.ic_home).into(listingImage);
                     }
                 }
             }

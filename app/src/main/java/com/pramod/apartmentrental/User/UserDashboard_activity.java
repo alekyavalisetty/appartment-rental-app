@@ -43,12 +43,6 @@ public class UserDashboard_activity extends AppCompatActivity {
 
     }
 
-    private void signOut() {
-        mFirebaseAuth.signOut();
-        Intent loginIntent = new Intent(this, Login_activity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationClickListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
