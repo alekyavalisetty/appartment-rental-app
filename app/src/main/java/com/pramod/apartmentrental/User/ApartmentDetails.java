@@ -53,12 +53,13 @@ public class ApartmentDetails extends AppCompatActivity {
         listingName = findViewById(R.id.listing_name);
         listingDescription = findViewById(R.id.listing_description);
         listingLocation = findViewById(R.id.listing_location);
-        listingLocation.setVisibility(View.GONE);
+
         listingPrice = findViewById(R.id.listing_price);
         listingOwner = findViewById(R.id.ownerName);
         mBack = findViewById(R.id.back);
         mSaveFavourite= findViewById(R.id.favourite_tenants);
         mViewMap= findViewById(R.id.view_in_map);
+
         listingImage = findViewById(R.id.listing_image);
 
         contactButton = findViewById(R.id.contact_owner);
