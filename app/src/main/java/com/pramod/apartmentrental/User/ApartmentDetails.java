@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.R;
+import com.pramod.apartmentrental.User.Favourites.User_favourites_Object;
 
 import java.util.Map;
 
@@ -126,13 +127,15 @@ public class ApartmentDetails extends AppCompatActivity {
                     mUserFavouriteDb.child("favourites").child(listingID).child("listing_id").setValue(listingID);
                     Toast.makeText(ApartmentDetails.this, "Saved to your Favourites", Toast.LENGTH_SHORT).show();
                     isFavourite = true;
-                    
+
                 }
                 else
                 {
-                    mUserFavouriteDb.child("favourites").child(listingID).child("listing_id").child(listingID).removeValue();
+                    mUserFavouriteDb.child("favourites").child(listingID).removeValue();
                     Toast.makeText(ApartmentDetails.this, "Removed from Favourites", Toast.LENGTH_SHORT).show();
                     isFavourite = false;
+                    Intent intent = new Intent(ApartmentDetails.this, UserDashboard_activity.class);
+                    startActivity(intent);
                 }
 
 
