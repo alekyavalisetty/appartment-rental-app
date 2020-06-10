@@ -37,6 +37,7 @@ public class ApartmentDetails extends AppCompatActivity {
             listingURL, l_price, l_renter_name;
     private Uri resultUri;
     private FirebaseAuth mAuth;
+    Boolean isFavourite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,30 +121,23 @@ public class ApartmentDetails extends AppCompatActivity {
 
                 mUserFavouriteDb = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
 
-                mUserFavouriteDb.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(isFavourite == false)
+                {
+                    mUserFavouriteDb.child("favourites").child(listingID).child("listing_id").setValue(listingID);
+                    Toast.makeText(ApartmentDetails.this, "Saved to your Favourites", Toast.LENGTH_SHORT).show();
+                    isFavourite = true;
+                    
+                }
+                else
+                {
+                    mUserFavouriteDb.child("favourites").child(listingID).child("listing_id").child(listingID).removeValue();
+                    Toast.makeText(ApartmentDetails.this, "Removed from Favourites", Toast.LENGTH_SHORT).show();
+                    isFavourite = false;
+                }
 
-                        if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
 
-                            Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
 
-                            //get the child you want
-                            if (map.get("listing_name") != null) {
-                                l_name = map.get("listing_name").toString();
-                                listingName.setText(l_name);
-                            }
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                mUserFavouriteDb.child("favourites").child(listingID).child("listing_id").setValue(listingID);
-                Toast.makeText(ApartmentDetails.this, "Saved to your Favourites", Toast.LENGTH_SHORT).show();
             }
         });
 
