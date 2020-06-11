@@ -83,7 +83,54 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    
+    private void clickListeners() {
+        myCurrentLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
+
+                } else {
+                    LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                    Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                    //Get latitude/longitude
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+
+                    UserGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+                    UserGoogleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(latitude, longitude))
+                            .title("CURRENT USER LOCATION"));
+                    CameraPosition currentLocation = CameraPosition.builder().target(new LatLng(latitude, longitude)).zoom(19).bearing(0).tilt(40).build();
+
+                    UserGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(currentLocation));
+
+                }
+            }
+        });
+    }
+
+    private void getMapParameters(final GoogleMap googleMap) {
+
+        DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings");
+
+        listDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
