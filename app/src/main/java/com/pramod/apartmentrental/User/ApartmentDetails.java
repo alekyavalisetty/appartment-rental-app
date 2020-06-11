@@ -122,7 +122,7 @@ public class ApartmentDetails extends AppCompatActivity {
 
                 mUserFavouriteDb = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
 
-                if(isFavourite == false)
+                if(!isFavourite)
                 {
                     mUserFavouriteDb.child("favourites").child(listingID).child("listing_id").setValue(listingID);
                     Toast.makeText(ApartmentDetails.this, "Saved to your Favourites", Toast.LENGTH_SHORT).show();
