@@ -2,6 +2,7 @@ package com.pramod.apartmentrental.User;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -22,8 +23,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +35,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.R;
+
+import java.util.ArrayList;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -46,7 +52,7 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
     TextView myCurrentLocation;
     Double latitude, longitude;
     private MarkerOptions markerOptions = new MarkerOptions();
-
+    private ArrayList<LatLng> latLngs = new ArrayList<>();
 
     public User_maps_fragment() {
         // Required empty public constructor
@@ -76,9 +82,6 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
 
 
         clickListeners();
-
-
-
 
 
     }
@@ -121,6 +124,80 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
         listDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+                    for(DataSnapshot showlist : dataSnapshot.getChildren()){
+
+                        GetListInformation(showlist.getKey(),googleMap);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void GetListInformation(String key, final GoogleMap googleMap) {
+         DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
+        listDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                String name= null, snippet = null;
+                if (dataSnapshot.child("listing_latitude").getValue() != null) {
+                    latitude = Double.parseDouble(dataSnapshot.child("listing_latitude").getValue().toString());
+                }
+
+                if (dataSnapshot.child("listing_longitude").getValue() != null) {
+                    longitude = Double.parseDouble(dataSnapshot.child("listing_longitude").getValue().toString());
+                }
+
+                if (dataSnapshot.child("listing_name").getValue() != null) {
+                    name = dataSnapshot.child("listing_name").getValue().toString();
+                }
+                if (dataSnapshot.child("listing_description").getValue() != null) {
+                    snippet = dataSnapshot.child("listing_description").getValue().toString();
+                }
+                if (dataSnapshot.child("listing_id").getValue() != null) {
+                    listingID = dataSnapshot.child("listing_id").getValue().toString();
+                }
+
+                latLngs.add(new LatLng(latitude,longitude));
+
+                for(LatLng point : latLngs){
+                    markerOptions.position(point);
+                    markerOptions.title(name);
+                    markerOptions.snippet(snippet);
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+
+                    googleMap.addMarker(markerOptions);
+
+                }
+
+                 UserGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                CameraPosition cameraPosition = CameraPosition.builder().target(new LatLng(latitude, longitude)).zoom(12).bearing(1).tilt(45).build();
+                UserGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                /*UserGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+
+                        Intent intent = new Intent(getActivity(), ApartmentDetails.class);
+
+                        Bundle b = new Bundle();
+                        b.putString("listID",listingID);
+                        intent.putExtras(b);
+
+                        startActivity(intent);
+                        return false;
+                    }
+                });*/
 
             }
 
