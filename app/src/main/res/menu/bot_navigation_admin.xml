@@ -3,19 +3,19 @@
 
 
     <item
-        android:id="@+id/users"
+        android:id="@+id/admin_users"
         android:title="Users"
         android:icon="@drawable/ic_group" />
 
 
     <item
-        android:id="@+id/maps"
+        android:id="@+id/admin_listings"
         android:title="Listings"
         android:icon="@drawable/ic_home" />
 
 
     <item
-        android:id="@+id/account_user"
+        android:id="@+id/account_admin"
         android:title="Account"
         android:icon="@drawable/ic_account" />
 
