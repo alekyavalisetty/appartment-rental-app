@@ -14,8 +14,13 @@ import android.widget.Toast;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pramod.apartmentrental.Admin.listings.AdminListings;
+import com.pramod.apartmentrental.Admin.users.AdminUsersList;
 import com.pramod.apartmentrental.Login_activity;
 import com.pramod.apartmentrental.R;
+import com.pramod.apartmentrental.Renter.Renter_add_apartment_fragment;
+import com.pramod.apartmentrental.Renter.home_listings.Renter_home_fragment;
+import com.pramod.apartmentrental.Renter.my_listings.Renter_my_listings;
 import com.pramod.apartmentrental.User.AvailableApartments.User_home_fragment;
 import com.pramod.apartmentrental.User.Favourites.User_favourites_fragment;
 import com.pramod.apartmentrental.User.User_account_fragment;
@@ -36,6 +41,14 @@ public class AdminDashboard_activity extends AppCompatActivity {
                 case R.id.account_admin:
                     getFragment(new User_account_fragment());
                     return true;
+                case R.id.admin_listings:
+                    getFragment(new AdminListings());
+                    return true;
+                case R.id.admin_users:
+                    getFragment(new AdminUsersList());
+                    return true;
+
+
             }
             return false;
         }
@@ -59,6 +72,8 @@ public class AdminDashboard_activity extends AppCompatActivity {
         materialToolbar.setTitle("ADMIN DASHBOARD");
 
     }
+
+
 
     private void getFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
