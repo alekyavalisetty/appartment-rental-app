@@ -110,8 +110,6 @@ public class ApartmentDetails extends AppCompatActivity {
 
                 Intent intent = new Intent(ApartmentDetails.this, UserDashboard_activity.class);
                 startActivity(intent);
-                finish();
-                return;
 
             }
         });

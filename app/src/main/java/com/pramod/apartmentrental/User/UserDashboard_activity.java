@@ -34,7 +34,7 @@ public class UserDashboard_activity extends AppCompatActivity {
 
         UserNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
         //Initialise user home fragment
-        UserNavigation.setSelectedItemId(R.id.home);
+        UserNavigation.setSelectedItemId(R.id.maps);
 
     }
 
