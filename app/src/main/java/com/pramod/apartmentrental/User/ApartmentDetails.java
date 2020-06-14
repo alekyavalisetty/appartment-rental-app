@@ -71,7 +71,7 @@ public class ApartmentDetails extends AppCompatActivity {
         mListingDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
         mUserDatabase =  FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
 
-       /* contactButton.setOnClickListener(new View.OnClickListener() {
+        contactButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
 
@@ -93,7 +93,7 @@ public class ApartmentDetails extends AppCompatActivity {
                      }
                  });
              }
-         });*/
+         });
 
 
         mBack.setOnClickListener(new View.OnClickListener() {
