@@ -135,6 +135,7 @@ public class ApartmentDetails extends AppCompatActivity {
                     Toast.makeText(ApartmentDetails.this, "Removed from Favourites", Toast.LENGTH_SHORT).show();
                     isFavourite = false;
                     Intent intent = new Intent(ApartmentDetails.this, UserDashboard_activity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
 

@@ -36,6 +36,7 @@ public class AdminListingViewHolder extends RecyclerView.ViewHolder implements V
         Bundle b = new Bundle();
         b.putString("listID",mListId.getText().toString());
         b.putString("renterID",mRenterId.getText().toString());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtras(b);
         v.getContext().startActivity(intent);
     }
