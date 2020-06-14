@@ -28,7 +28,6 @@ import com.pramod.apartmentrental.User.User_maps_fragment;
 
 public class AdminDashboard_activity extends AppCompatActivity {
 
-    MaterialToolbar materialToolbar;
     private FirebaseAuth mFirebaseAuth;
     private BottomNavigationView AdminNavigation;
 
@@ -66,10 +65,8 @@ public class AdminDashboard_activity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_dashboard_activity);
 
         AdminNavigation = findViewById(R.id.bottom_nav_view_admin);
-        materialToolbar = findViewById(R.id.toolbar);
         AdminNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
         AdminNavigation.setSelectedItemId(R.id.admin_listings);
-        materialToolbar.setTitle("ADMIN DASHBOARD");
 
     }
 

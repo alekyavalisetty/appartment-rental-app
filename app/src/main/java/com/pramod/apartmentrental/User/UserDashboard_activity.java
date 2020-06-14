@@ -23,7 +23,6 @@ public class UserDashboard_activity extends AppCompatActivity {
 
     private BottomNavigationView UserNavigation;
     private FirebaseAuth mFirebaseAuth;
-    MaterialToolbar materialToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +30,11 @@ public class UserDashboard_activity extends AppCompatActivity {
         setContentView(R.layout.activity_user_dashboard_activity);
 
         UserNavigation = findViewById(R.id.bottom_nav_view_user);
-        materialToolbar = findViewById(R.id.toolbar);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         UserNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
         //Initialise user home fragment
         UserNavigation.setSelectedItemId(R.id.home);
-
-        materialToolbar.setTitle("USER DASHBOARD");
 
     }
 

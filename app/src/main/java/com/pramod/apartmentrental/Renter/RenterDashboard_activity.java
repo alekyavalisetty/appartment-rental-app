@@ -24,7 +24,6 @@ public class RenterDashboard_activity extends AppCompatActivity {
 
     private BottomNavigationView UserNavigation;
     private FirebaseAuth mFirebaseAuth;
-    MaterialToolbar materialToolbar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationClickListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,10 +54,7 @@ public class RenterDashboard_activity extends AppCompatActivity {
         setContentView(R.layout.activity_renter_dashboard_activity);
 
         UserNavigation = findViewById(R.id.bottom_nav_view_renter);
-        materialToolbar = findViewById(R.id.toolbar);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
-        materialToolbar.setTitle("RENTER DASHBOARD");
         UserNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
         UserNavigation.setSelectedItemId(R.id.account_Renter);
 
