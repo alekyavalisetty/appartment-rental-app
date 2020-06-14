@@ -1,19 +1,40 @@
 package com.pramod.apartmentrental;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserProfileSettings extends AppCompatActivity {
 
@@ -24,10 +45,10 @@ public class UserProfileSettings extends AppCompatActivity {
     private Button mSaveChanges,mEditProfile;
     private TextView mBack;
 
-    private Uri resultUri;
+    private Uri userProfileUri;
     private ImageView mProfileImage;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private String userID, userFirstName, userLastName,userEmail,usersImageUrl, userPhone;
+    private String userID, userName,userEmail,usersImageUrl, userPhone;
 
 
     @Override
@@ -105,5 +126,159 @@ public class UserProfileSettings extends AppCompatActivity {
                 return;
             }
         });
+    }
+
+    private void saveUserInformation() {
+        userName = mUserName.getText().toString();
+        userEmail = mUserEmail.getText().toString();
+        userPhone = mUserPhone.getText().toString();
+
+        Map userInfo = new HashMap();
+
+        if(!userName.isEmpty())
+        {
+            userInfo.put("name", userName);
+
+        }
+
+        if(!userEmail.isEmpty())
+        {
+            userInfo.put("email", userEmail);
+
+        }
+
+        if(!userPhone.isEmpty())
+        {
+            userInfo.put("phone", userPhone);
+
+        }
+
+        mUserDatabase.updateChildren(userInfo);
+
+        if (userProfileUri != null) {
+            StorageReference filepath = FirebaseStorage.getInstance().getReference().child("photo").child(userID);
+            Bitmap bitmap = null;
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), userProfileUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //tomake the image small size
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+
+            byte[] data = baos.toByteArray();
+
+            //uploading the image
+            UploadTask uploadTask = filepath.putBytes(data);
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    finish();
+                }
+            });
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    if (taskSnapshot.getMetadata() != null) {
+                        if (taskSnapshot.getMetadata().getReference() != null) {
+                            Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String imageUrl = uri.toString();
+
+                                    Map userInfo = new HashMap();
+                                    userInfo.put("photo", imageUrl);
+
+                                    mUserDatabase.updateChildren(userInfo);
+                                }
+                            });
+
+                        }
+                    }
+
+
+
+                }
+            });
+            Toast.makeText(this, "Details are updated successfully.", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+
+        } else {
+
+            return;
+        }
+    }
+
+    private void getUserInfo() {
+        //add a listener to check for current user infromation
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+                    if (map.get("name") != null) {
+                        userName = map.get("name").toString();
+                        mUserName.setText(userName);
+                    }
+
+                    if (map.get("email") != null) {
+                        userEmail = map.get("email").toString();
+                        mUserEmail.setText(userEmail);
+                    }
+
+                    if (map.get("phone") != null) {
+                        userPhone = map.get("phone").toString();
+                        mUserPhone.setText(userPhone);
+                    }
+
+
+                    Glide.clear(mProfileImage);
+
+                    if (map.get("photo") != null) {
+
+                        usersImageUrl = map.get("photo").toString();
+
+                        switch (usersImageUrl) {
+
+                            case "default":
+                                Glide.with(getApplication()).load(R.drawable.ic_home).into(mProfileImage);
+                                break;
+                            default:
+                                Glide.with(getApplication()).load(usersImageUrl).into(mProfileImage);
+                                break;
+
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            final Uri imageUri = data.getData();
+            userProfileUri = imageUri;
+            mProfileImage.setImageURI(userProfileUri);
+        }
+
     }
 }

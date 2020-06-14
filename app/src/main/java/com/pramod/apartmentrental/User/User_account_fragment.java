@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.Login_activity;
 import com.pramod.apartmentrental.R;
 import com.pramod.apartmentrental.SelectionScreen_activity;
+import com.pramod.apartmentrental.UserProfileSettings;
 
 import java.util.Map;
 
@@ -31,11 +32,12 @@ import java.util.Map;
  */
 public class User_account_fragment extends Fragment {
 
-    LinearLayout signoutOwner, changeRole;
+    LinearLayout signoutOwner, changeRole, changeSettings;
     TextView mAccountName;
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
-    private String currentUId, userName;
+    DatabaseReference mAdminDatabase;
+    private String currentUId, userName, role;
 
     public User_account_fragment() {
         // Required empty public constructor
@@ -58,10 +60,34 @@ public class User_account_fragment extends Fragment {
 
         signoutOwner = getView().findViewById(R.id.signout);
         changeRole = getView().findViewById(R.id.changeRole);
+        changeSettings = view.findViewById(R.id.userSettings);
 
         mAccountName = getView().findViewById(R.id.account_name);
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUId);
+
+        //Check current user is admin
+        mAdminDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUId);
+        mAdminDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    role = dataSnapshot.child("role").getValue().toString();
+                    if(role.equals("admin")){
+                       changeRole.setVisibility(View.GONE);
+                    }
+                    else {
+                        changeRole.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //set Current user Name
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,6 +121,13 @@ public class User_account_fragment extends Fragment {
             }
         });
 
+        changeSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserProfileSettings.class);
+                startActivity(intent);
+            }
+        });
 
         signoutOwner.setOnClickListener(new View.OnClickListener() {
             @Override
