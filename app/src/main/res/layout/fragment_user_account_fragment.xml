@@ -82,6 +82,33 @@ android:layout_height="match_parent">
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/userSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_settings"
+            android:backgroundTint="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.5"
+            android:text="Profile Settings"
+
+            android:textSize="20sp"/>
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/signout"
