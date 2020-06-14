@@ -78,6 +78,7 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
             mMapView.getMapAsync(this);
         }
 
+
     }
 
 
@@ -149,26 +150,28 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
                 CameraPosition cameraPosition = CameraPosition.builder().target(new LatLng(latitude, longitude)).zoom(12).bearing(1).tilt(45).build();
                 UserGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-                /*UserGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-
-                        Intent intent = new Intent(getActivity(), ApartmentDetails.class);
-
-                        Bundle b = new Bundle();
-                        b.putString("listID",listingID);
-                        intent.putExtras(b);
-
-                        startActivity(intent);
-                        return false;
-                    }
-                });*/
+                /**/
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        UserGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                Intent intent = new Intent(getActivity(), ApartmentDetails.class);
+
+                Bundle b = new Bundle();
+                b.putString("listID",listingID);
+                intent.putExtras(b);
+
+                startActivity(intent);
+                return false;
             }
         });
 
