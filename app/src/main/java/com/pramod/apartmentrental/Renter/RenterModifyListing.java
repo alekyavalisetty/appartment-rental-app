@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -40,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.pramod.apartmentrental.Admin.AdminDashboard_activity;
 import com.pramod.apartmentrental.R;
 
 import java.io.ByteArrayOutputStream;
@@ -58,11 +60,11 @@ public class RenterModifyListing extends AppCompatActivity {
     Button saveButton, deleteButton;
     private FirebaseAuth mAuth;
     private String currentUserID,listingID, l_name,l_description, l_location,l_location1,
-            listingURL, l_price,city, address;
+            listingURL, l_price,city, address, role, renterId;
     private Double latitude= null, longitude= null;
     private Uri resultUri;
     private ImageView listingImage;
-    private DatabaseReference mListingDatabase, mUserDatabase;
+    private DatabaseReference mListingDatabase, mUserDatabase, mAdminDatabase, mUserFavourites;
 
 
     @Override
@@ -76,9 +78,33 @@ public class RenterModifyListing extends AppCompatActivity {
 
         //Get intent extras
         listingID =  getIntent().getExtras().getString("listID");
-        mListingDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("listings").child(listingID);
 
+        //check if admin
+        mAdminDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
+        mAdminDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    role = dataSnapshot.child("role").getValue().toString();
+                    if(role.equals("admin")){
+                        renterId = getIntent().getExtras().getString("renterID");
+                        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(renterId).child("listings").child(listingID);
+                    }
+                    else {
+                        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("listings").child(listingID);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        mListingDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
 
         //Linking editText fields
         listingName = findViewById(R.id.listing_name);
@@ -137,12 +163,22 @@ public class RenterModifyListing extends AppCompatActivity {
     private void deleteListing() {
         mListingDatabase.removeValue();
         mUserDatabase.removeValue();
+        //remove from favourites
+
 
         Toast.makeText(this, "Apartment removed successfully!", Toast.LENGTH_SHORT).show();
 
-        Intent homeIntent = new Intent(RenterModifyListing.this, RenterDashboard_activity.class);
-        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(homeIntent);
+        if(role.equals("admin")){
+            Intent homeIntent = new Intent(RenterModifyListing.this, AdminDashboard_activity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(homeIntent);
+        }
+        else {
+            Intent homeIntent = new Intent(RenterModifyListing.this, RenterDashboard_activity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(homeIntent);
+        }
+
     }
 
     private void saveApartmentDetails() {
