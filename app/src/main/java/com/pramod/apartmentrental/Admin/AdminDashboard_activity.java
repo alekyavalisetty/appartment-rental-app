@@ -68,7 +68,7 @@ public class AdminDashboard_activity extends AppCompatActivity {
         AdminNavigation = findViewById(R.id.bottom_nav_view_admin);
         materialToolbar = findViewById(R.id.toolbar);
         AdminNavigation.setOnNavigationItemSelectedListener(mOnNavigationClickListener);
-
+        AdminNavigation.setSelectedItemId(R.id.admin_listings);
         materialToolbar.setTitle("ADMIN DASHBOARD");
 
     }
