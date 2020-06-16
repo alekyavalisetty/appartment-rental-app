@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#f7993b</color>
-    <color name="colorPrimaryDark">#f5881b</color>
+    <color name="colorPrimary">#0B0B0A</color>
+    <color name="colorPrimaryDark">#070707</color>
     <color name="colorAccent">#f5881b</color>
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="blue">#2196f3</color>
 
 
-
+    <color name="background">#77B1B1B1</color>
     <color name="transparent">#00000000</color>
 
     <color name="gradStart">#fff86e</color>
