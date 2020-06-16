@@ -1,92 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="150dp"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="4dp"
-    android:clipToPadding="false"
-    android:elevation="8dp"
-
-    >
+    android:elevation="2dp">
 
 
-
-    <LinearLayout
-        android:background="@drawable/bottom_border"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/viewListing"
-        >
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+
+        <LinearLayout
+
+            android:id="@+id/viewListing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            >
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:src="@drawable/ic_home"
                 android:id="@+id/listImageApartment"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
                 android:scaleType="centerCrop"
-                />
+                android:src="@drawable/ic_home" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:text="Listing Name"
                 android:gravity="center"
                 android:id="@+id/listNameApartment"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 />
 
-        <TextView
-            android:id="@+id/listIdApartment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:text="Listing Id"
-            android:visibility="gone"
-            />
-
-
             <TextView
+                android:id="@+id/listIdApartment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Description: "
-                android:textStyle="italic"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:id="@+id/listDescriptionApartment"
-                android:textSize="17sp"
-                android:padding="5dp"
+                android:text="Listing Id"
+                android:visibility="gone"
                 />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Listing Price"
-               android:padding="6dp"
-                android:layout_gravity="center"
                 android:id="@+id/listPriceApartment"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="center"
+                android:text="Listing Price"
                 android:textSize="15sp"
-                android:layout_marginBottom="5dp"
                 />
 
-        <TextView
-            android:id="@+id/listRenter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:padding="6dp"
-            android:text="Listing Renter"
-            android:textSize="15sp"
-            android:visibility="gone"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+           android:id="@+id/listDescriptionApartment"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
+                android:text="Description: "
+                android:layout_gravity="center"
+                android:textStyle="italic"
+                android:textSize="15sp"
+                />
+
+
+
+            <TextView
+                android:id="@+id/listRenter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:padding="6dp"
+                android:text="Listing Renter"
+                android:textSize="15sp"
+                android:visibility="gone"
+                />
 
 
         </LinearLayout>
 
+    </androidx.cardview.widget.CardView>
 
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>
