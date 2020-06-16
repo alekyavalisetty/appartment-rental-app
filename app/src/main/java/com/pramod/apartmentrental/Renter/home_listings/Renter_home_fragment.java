@@ -180,19 +180,5 @@ public class Renter_home_fragment extends Fragment implements OnMapReadyCallback
         mGoogleMap = googleMap;
         getMapParameters(googleMap);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
-
-        } else {
-            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-
-            CameraPosition Liberty = CameraPosition.builder().target(new LatLng(latitude, longitude)).zoom(15).bearing(0).tilt(45).build();
-            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
-        }
     }
 }
