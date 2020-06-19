@@ -30,9 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email ID"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:layout_marginLeft="38dp"
             android:layout_marginRight="38dp"
-            android:padding="12dp"/>
+            android:maxLines="1"
+            android:padding="12dp">
+            <requestFocus />
+        </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_password"
@@ -40,10 +45,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:imeOptions="actionNext"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="38dp"
             android:layout_marginRight="38dp"
-            android:padding="12dp"/>
+            android:maxLines="1"
+            android:padding="12dp">
+            <requestFocus />
+
+        </com.google.android.material.textfield.TextInputEditText>
 
 
         <Button
