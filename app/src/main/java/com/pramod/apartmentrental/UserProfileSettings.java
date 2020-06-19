@@ -41,7 +41,8 @@ public class UserProfileSettings extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private EditText mUserName, mUserEmail, mUserPhone;
+    private EditText mUserName, mUserPhone;
+    private TextView mUserEmail;
     private Button mSaveChanges,mEditProfile;
     private TextView mBack;
 
@@ -74,8 +75,17 @@ public class UserProfileSettings extends AppCompatActivity {
         mEditProfile = findViewById(R.id.editprofile);
 
         mAuth = FirebaseAuth.getInstance();
-        userID = mAuth.getCurrentUser().getUid();
 
+        final Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+
+        if(b!=null)
+        {
+            userID = (String)b.get("renter");
+        }
+        else {
+            userID = mAuth.getCurrentUser().getUid();
+        }
         mProfileImage = findViewById(R.id.profileimage);
         mProfileImage.setEnabled(false);
 
@@ -107,7 +117,6 @@ public class UserProfileSettings extends AppCompatActivity {
                 mUserName.requestFocus();
 
                 mUserPhone.setEnabled(true);
-                mUserEmail.setEnabled(true);
 
             }
         });
@@ -249,8 +258,8 @@ public class UserProfileSettings extends AppCompatActivity {
 
                         switch (usersImageUrl) {
 
-                            case "default":
-                                Glide.with(getApplication()).load(R.drawable.ic_home).into(mProfileImage);
+                            case "":
+                                Glide.with(getApplication()).load(R.drawable.ic_account).into(mProfileImage);
                                 break;
                             default:
                                 Glide.with(getApplication()).load(usersImageUrl).into(mProfileImage);

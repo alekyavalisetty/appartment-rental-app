@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pramod.apartmentrental.R;
 import com.pramod.apartmentrental.Renter.RenterModifyListing;
+import com.pramod.apartmentrental.User.ContactRenter;
+import com.pramod.apartmentrental.UserProfileSettings;
 
 public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -19,6 +21,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public UsersViewHolder(@NonNull View itemView) {
         super(itemView);
+        itemView.setOnClickListener(this);
 
         mUserName = itemView.findViewById(R.id.userName);
         mUserPhone = itemView.findViewById(R.id.userPhone);
@@ -30,9 +33,9 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(v.getContext(), RenterModifyListing.class);
+        Intent intent = new Intent(v.getContext(), UserProfileSettings.class);
         Bundle b = new Bundle();
-        b.putString("userId",mUserId.getText().toString());
+        b.putString("renter",mUserId.getText().toString());
         intent.putExtras(b);
         v.getContext().startActivity(intent);
     }
