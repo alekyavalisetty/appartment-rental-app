@@ -25,6 +25,10 @@
 
             />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
@@ -35,7 +39,7 @@
             android:layout_marginLeft="38dp"
             android:layout_marginRight="38dp"
             android:padding="12dp"/>
-
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
