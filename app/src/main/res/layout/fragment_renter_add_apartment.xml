@@ -220,6 +220,15 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Please enter valid apartment details. Verification will be done after posting."
+            android:textSize="26sp"
+            android:textStyle="bold"/>
+
     </RelativeLayout>
 
 </ScrollView>

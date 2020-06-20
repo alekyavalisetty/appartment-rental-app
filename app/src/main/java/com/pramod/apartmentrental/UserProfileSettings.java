@@ -246,8 +246,8 @@ public class UserProfileSettings extends AppCompatActivity {
             return;
 
         } else {
-
-            return;
+            Toast.makeText(this, "Details are updated successfully.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

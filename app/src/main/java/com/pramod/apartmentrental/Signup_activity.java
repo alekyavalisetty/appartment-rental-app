@@ -218,9 +218,8 @@ public class Signup_activity extends AppCompatActivity {
 
                                 userDetails.put("name",name);
                                 userDetails.put("email",email);
-                                userDetails.put("role",role);
+                                userDetails.put("role","user");
                                 userDetails.put("phone",phone);
-
 
                                 currentUserDbReference.updateChildren(userDetails);
                                 Toast.makeText(Signup_activity.this, "Sign up is successful. Redirecting to selection screen", Toast.LENGTH_SHORT).show();
