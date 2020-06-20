@@ -125,8 +125,6 @@ public class ContactRenter extends AppCompatActivity {
                         mUserPhone.setText(userPhone);
                     }
 
-                    Glide.clear(mProfileImage);
-
                     if (map.get("photo") != null) {
 
                         usersImageUrl = map.get("photo").toString();

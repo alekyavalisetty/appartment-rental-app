@@ -233,7 +233,7 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        MapsInitializer.initialize(getContext());
+        MapsInitializer.initialize(getActivity());
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         UserGoogleMap = googleMap;

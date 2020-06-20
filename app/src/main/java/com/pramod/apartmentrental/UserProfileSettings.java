@@ -285,7 +285,6 @@ public class UserProfileSettings extends AppCompatActivity {
 
                     }
 
-                    Glide.clear(mProfileImage);
 
                     if (map.get("photo") != null) {
 
