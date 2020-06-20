@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,21 +25,24 @@ import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.R;
 import com.pramod.apartmentrental.User.Favourites.User_favourites_Object;
 
+import java.util.Locale;
 import java.util.Map;
 
 public class ApartmentDetails extends AppCompatActivity {
 
     TextView listingName, listingDescription, listingLocation,
             listingPrice,mBack, listingRenter, mViewMap;
-    ImageView mSaveFavourite,listingImage;
+    ImageView mSaveFavourite;
+    ImageView listingImage;
     Button contactButton;
-    String value, renterID;
+    String value, renterID, latitude, longitude;
     private DatabaseReference mListingDatabase, mRenterDatabase, mUserDatabase,mUserFavouriteDb;
     private String currentUserID,listingID, l_name,l_description, l_location,
             listingURL, l_price, l_renter_name;
     private Uri resultUri;
     private FirebaseAuth mAuth;
     Boolean isFavourite = false;
+     ImagePopup imagePopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,14 @@ public class ApartmentDetails extends AppCompatActivity {
         mViewMap= findViewById(R.id.view_in_map);
 
         listingImage = findViewById(R.id.listing_image);
+        imagePopup = new ImagePopup(this);
+
+        listingImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagePopup.viewPopup();
+            }
+        });
 
         contactButton = findViewById(R.id.contact_owner);
 
@@ -108,9 +120,12 @@ public class ApartmentDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(ApartmentDetails.this, UserDashboard_activity.class);
-                startActivity(intent);
-
+                String urlAddress = "http://maps.google.com/maps?q="+ latitude  +"," + longitude +"&iwloc=A&hl=es";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlAddress));
+                intent.setPackage("com.google.android.apps.maps");
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
 
@@ -177,6 +192,13 @@ public class ApartmentDetails extends AppCompatActivity {
                         l_location = map.get("listing_location").toString();
                         listingLocation.setText(l_location);
                     }
+                    if (map.get("listing_latitude") != null) {
+                        latitude = map.get("listing_latitude").toString();
+
+                    }
+                    if (map.get("listing_longitude") != null) {
+                        longitude = map.get("listing_longitude").toString();
+                    }
 
 
                     if (map.get("listing_image") != "default") {
@@ -184,7 +206,9 @@ public class ApartmentDetails extends AppCompatActivity {
                         listingURL = map.get("listing_image").toString();
 
                         Glide.with(getApplication()).load(listingURL).placeholder(R.drawable.ic_home).into(listingImage);
+                        imagePopup.initiatePopupWithGlide(listingURL); // Load Image from Drawable
                     }
+
                 }
             }
 
@@ -261,6 +285,7 @@ public class ApartmentDetails extends AppCompatActivity {
             final Uri imageUri = data.getData();
             resultUri = imageUri;
             listingImage.setImageURI(resultUri);
+
         }
     }
 

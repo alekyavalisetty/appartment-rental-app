@@ -46,6 +46,8 @@ public class Login_activity extends AppCompatActivity {
     //Called when change in authentication state
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
+    FirebaseUser currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,50 +63,8 @@ public class Login_activity extends AppCompatActivity {
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-
-
-                final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-                if(currentUser != null){
-
-                    currentUserID = currentUser.getUid();
-                    usersDb = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
-
-
-                    usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                            user_role = dataSnapshot.child("role").getValue(String.class);
-
-                            if(user_role.equals("user")||user_role.equals("renter"))
-                            {
-                                Intent intent = new Intent(Login_activity.this, SelectionScreen_activity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else if(user_role.equals("admin")){
-                                Intent intent = new Intent(Login_activity.this, AdminDashboard_activity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else if(user_role.equals("block"))
-                            {
-                                Intent intent = new Intent(Login_activity.this, BlockedUser.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        checkForUser(currentUser);
 
         mSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +108,8 @@ public class Login_activity extends AppCompatActivity {
                             else
                             {
                                 Toast.makeText(Login_activity.this, "Successfully signed in...", Toast.LENGTH_SHORT).show();
-                                showSelectionScreen();
+                                currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                checkForUser(currentUser);
                             }
                         }
                     });
@@ -159,6 +120,50 @@ public class Login_activity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void checkForUser(FirebaseUser currentUser) {
+        if(currentUser != null){
+
+            currentUserID = currentUser.getUid();
+            usersDb = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
+
+
+            usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                    user_role = dataSnapshot.child("role").getValue(String.class);
+
+                    if(user_role.equals("user")||user_role.equals("renter"))
+                    {
+                        Intent intent = new Intent(Login_activity.this, SelectionScreen_activity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if(user_role.equals("admin")){
+                        Intent intent = new Intent(Login_activity.this, AdminDashboard_activity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if(user_role.equals("block"))
+                    {
+                        Intent intent = new Intent(Login_activity.this, BlockedUser.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     @Override
