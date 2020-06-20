@@ -10,8 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:background="@drawable/backgroundgradient2">
 
 
 
@@ -20,10 +20,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/bottom_border">
+                android:layout_margin="20dp"
+                android:layout_marginBottom="5dp"
+               >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
 
                     android:gravity="center">
@@ -39,12 +42,13 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+
                             android:layout_gravity="center">
 
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:src="@drawable/ic_home"
+                                android:src="@drawable/ic_baseline_add_photo_alternate_24"
                                 android:id="@+id/listing_image"
                                 android:scaleType="centerCrop"
                                 />
@@ -57,12 +61,18 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/rounded"
                     android:orientation="horizontal">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Advertisment Name"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/colorPrimary"
                         android:focusable="auto"
                         android:id="@+id/listing_name"
                         android:layout_margin="10dp"
@@ -72,18 +82,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginBottom="5dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/rounded"
                     android:orientation="horizontal"
                     >
 
                     <EditText
                         android:layout_width="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_height="wrap_content"
                         android:hint="Description"
                         android:gravity="top|left"
                         android:focusable="auto"
                         android:scrollbars="vertical"
                         android:id="@+id/listing_description"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/colorPrimary"
                         android:layout_margin="10dp"
                         />
 
@@ -94,7 +110,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginBottom="5dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/rounded"
                     android:orientation="horizontal"
                     >
 
@@ -107,7 +125,11 @@
                         android:inputType="textAutoComplete|textAutoCorrect"
                         android:imeOptions="actionSearch"
                         android:id="@+id/listing_location"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_margin="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/colorPrimary"
                         android:enabled="true"
                         android:layout_weight="0.8"
                         android:completionHint="Select the address of your listing"
@@ -128,7 +150,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginBottom="5dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/rounded"
                     android:orientation="horizontal">
 
                     <EditText
@@ -138,8 +162,12 @@
                         android:focusable="auto"
                         android:scrollbars="vertical"
                         android:gravity="top|left"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:id="@+id/listing_location1"
                         android:layout_margin="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/colorPrimary"
                         />
 
                 </LinearLayout>
@@ -147,6 +175,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/rounded"
                     android:orientation="horizontal">
 
                     <EditText
@@ -156,7 +186,11 @@
                         android:focusable="auto"
                         android:scrollbars="vertical"
                         android:gravity="top|left"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:id="@+id/listing_price"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/colorPrimary"
                         android:layout_margin="10dp"
                         android:inputType="numberDecimal" />
 
