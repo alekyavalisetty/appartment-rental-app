@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,6 +39,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -55,7 +58,9 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
     private MarkerOptions markerOptions = new MarkerOptions();
     private ArrayList<LatLng> latLngs = new ArrayList<>();
     TextView myLocation;
+    Marker marker;
 
+    private Map<Marker, String> markerMap = new HashMap<>();
     public User_maps_fragment() {
         // Required empty public constructor
     }
@@ -144,7 +149,7 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void GetListInformation(String key, final GoogleMap googleMap) {
-         DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
+         final DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
         listDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -182,15 +187,36 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
                         markerOptions.snippet(snippet);
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 
-                        googleMap.addMarker(markerOptions);
+                        marker = googleMap.addMarker(markerOptions);
+
+                        markerMap.put(marker,listingID);
+
 
                     }
 
                     UserGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                     CameraPosition cameraPosition = CameraPosition.builder().target(new LatLng(latitude, longitude)).zoom(12).bearing(1).tilt(45).build();
                     UserGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
                 }
-                /**/
+
+                UserGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+
+                       // markerMap.get(marker);
+                        Intent intent = new Intent(getActivity(), ApartmentDetails.class);
+
+                        Bundle b = new Bundle();
+                        b.putString("listID",markerMap.get(marker));
+                        intent.putExtras(b);
+
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+
+
 
             }
 
@@ -200,20 +226,7 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        UserGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
 
-                Intent intent = new Intent(getActivity(), ApartmentDetails.class);
-
-                Bundle b = new Bundle();
-                b.putString("listID",listingID);
-                intent.putExtras(b);
-
-                startActivity(intent);
-                return false;
-            }
-        });
 
     }
 

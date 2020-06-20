@@ -37,6 +37,8 @@ import com.pramod.apartmentrental.R;
 import com.pramod.apartmentrental.Renter.RenterModifyListing;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -57,6 +59,9 @@ public class Renter_home_fragment extends Fragment implements OnMapReadyCallback
     private ArrayList<LatLng> latLngs = new ArrayList<>();
     private FirebaseAuth mAuth;
     private String currentUserID;
+    Marker marker;
+    private Map<Marker, String> markerMap = new HashMap<>();
+
 
 
     public Renter_home_fragment() {
@@ -143,7 +148,10 @@ public class Renter_home_fragment extends Fragment implements OnMapReadyCallback
                     options.position(point);
                     options.title(name);
                     options.snippet(snippet);
-                    googleMap.addMarker(options);
+                    marker = googleMap.addMarker(options);
+
+                    markerMap.put(marker,listingID);
+
 
                 }
                 mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -151,9 +159,8 @@ public class Renter_home_fragment extends Fragment implements OnMapReadyCallback
                     public boolean onMarkerClick(Marker marker) {
 
                         Intent intent = new Intent(getActivity(), RenterModifyListing.class);
-
                         Bundle b = new Bundle();
-                        b.putString("listID",listingID);
+                        b.putString("listID",markerMap.get(marker));
                         intent.putExtras(b);
 
                         startActivity(intent);
