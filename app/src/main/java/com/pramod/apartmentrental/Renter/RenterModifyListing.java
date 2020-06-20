@@ -79,6 +79,19 @@ public class RenterModifyListing extends AppCompatActivity {
         //Get intent extras
         listingID =  getIntent().getExtras().getString("listID");
 
+        //Linking editText fields
+        listingName = findViewById(R.id.listing_name);
+        listingDescription = findViewById(R.id.listing_description);
+        listingLocation = findViewById(R.id.listing_location);
+        listingLocation1 = findViewById(R.id.listing_location1);
+        listingPrice = findViewById(R.id.listing_price);
+        listingImage = findViewById(R.id.listing_image);
+
+        mBack = findViewById(R.id.back);
+        deleteButton = findViewById(R.id.button_delete_ad);
+        saveButton = findViewById(R.id.button_save_ad);
+        getLocation = findViewById(R.id.button_get_location);
+
         //check if admin
         mAdminDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
         mAdminDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -90,6 +103,13 @@ public class RenterModifyListing extends AppCompatActivity {
                     if(role.equals("admin")){
                         renterId = getIntent().getExtras().getString("renterID");
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(renterId).child("listings").child(listingID);
+                        saveButton.setVisibility(View.GONE);
+                        listingName.setEnabled(false);
+                        listingDescription.setEnabled(false);
+                        listingImage.setEnabled(false);
+                        listingLocation.setEnabled(false);
+                        listingLocation1.setEnabled(false);
+                        listingPrice.setEnabled(false);
                     }
                     else {
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("listings").child(listingID);
@@ -106,18 +126,7 @@ public class RenterModifyListing extends AppCompatActivity {
 
         mListingDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
 
-        //Linking editText fields
-        listingName = findViewById(R.id.listing_name);
-        listingDescription = findViewById(R.id.listing_description);
-        listingLocation = findViewById(R.id.listing_location);
-        listingLocation1 = findViewById(R.id.listing_location1);
-        listingPrice = findViewById(R.id.listing_price);
-        listingImage = findViewById(R.id.listing_image);
 
-        mBack = findViewById(R.id.back);
-        deleteButton = findViewById(R.id.button_delete_ad);
-        saveButton = findViewById(R.id.button_save_ad);
-        getLocation = findViewById(R.id.button_get_location);
         
         //Get address using maps api
         Places.initialize(this, "AIzaSyDM14aZbu5rVipuAmAZ5ZI24VZ6HWTh0BI");
