@@ -36,6 +36,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
         Intent intent = new Intent(v.getContext(), UserProfileSettings.class);
         Bundle b = new Bundle();
         b.putString("renter",mUserId.getText().toString());
+        b.putString("role","admin");
         intent.putExtras(b);
         v.getContext().startActivity(intent);
     }

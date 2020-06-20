@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -112,6 +113,8 @@ public class AdminUsersList extends Fragment {
                     String userPhone = "";
                     String userEmail = "";
                     String userId = key;
+
+                    if(key!= FirebaseAuth.getInstance().getCurrentUser().getUid())
 
                     if (dataSnapshot.child("name").getValue() != null) {
                         userName = dataSnapshot.child("name").getValue().toString();

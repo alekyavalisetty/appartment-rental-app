@@ -43,13 +43,13 @@ public class UserProfileSettings extends AppCompatActivity {
 
     private EditText mUserName, mUserPhone;
     private TextView mUserEmail;
-    private Button mSaveChanges,mEditProfile;
+    private Button mSaveChanges,mEditProfile, mBlockProfile;
     private TextView mBack;
 
     private Uri userProfileUri;
     private ImageView mProfileImage;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private String userID, userName,userEmail,usersImageUrl, userPhone;
+    private String userID, userName,userEmail,usersImageUrl, userPhone, role,roleDb;
 
 
     @Override
@@ -74,6 +74,9 @@ public class UserProfileSettings extends AppCompatActivity {
 
         mEditProfile = findViewById(R.id.editprofile);
 
+        mBlockProfile = findViewById(R.id.blockProfile);
+        mBlockProfile.setVisibility(View.GONE);
+
         mAuth = FirebaseAuth.getInstance();
 
         final Intent intent = getIntent();
@@ -82,9 +85,13 @@ public class UserProfileSettings extends AppCompatActivity {
         if(b!=null)
         {
             userID = (String)b.get("renter");
+            role = (String)b.get("role");
+            mBlockProfile.setVisibility(View.VISIBLE);
+            mEditProfile.setVisibility(View.GONE);
         }
         else {
             userID = mAuth.getCurrentUser().getUid();
+            role = "user";
         }
         mProfileImage = findViewById(R.id.profileimage);
         mProfileImage.setEnabled(false);
@@ -93,6 +100,8 @@ public class UserProfileSettings extends AppCompatActivity {
         //connecting to database
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
         getUserInfo();
+
+
 
 
         mProfileImage.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +127,23 @@ public class UserProfileSettings extends AppCompatActivity {
 
                 mUserPhone.setEnabled(true);
 
+            }
+        });
+
+        mBlockProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(roleDb.equals("block"))
+                {
+                    mUserDatabase.child("role").setValue("user");
+                    Toast.makeText(UserProfileSettings.this, "User is unblocked", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else {
+                    mUserDatabase.child("role").setValue("block");
+                    Toast.makeText(UserProfileSettings.this, "User is blocked successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
 
@@ -249,6 +275,15 @@ public class UserProfileSettings extends AppCompatActivity {
                         mUserPhone.setText(userPhone);
                     }
 
+                    if (map.get("role") != null) {
+                        roleDb = map.get("role").toString();
+                    }
+
+                    if(roleDb.equals("block"))
+                    {
+                        mBlockProfile.setText("Unblock");
+
+                    }
 
                     Glide.clear(mProfileImage);
 
