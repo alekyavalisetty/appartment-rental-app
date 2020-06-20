@@ -69,7 +69,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_home"
+                        android:src="@drawable/ic_profilepic"
                         />
 
                 </androidx.cardview.widget.CardView>
@@ -200,6 +200,16 @@
                     android:layout_marginLeft="12dp"
                     android:background="@drawable/bottom_border"
                     android:text="Edit Profile" />
+
+                <Button
+                    android:id="@+id/blockProfile"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/bottom_border"
+                    android:text="Block Profile"
+                    android:visibility="gone" />
 
 
 
