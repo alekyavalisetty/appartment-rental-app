@@ -42,6 +42,11 @@ public class Splash_activity extends AppCompatActivity {
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+
+        final Handler handler = new Handler();
+
+
+
         if(mFirebaseAuth.getCurrentUser()!=null){
 
             final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -59,31 +64,43 @@ public class Splash_activity extends AppCompatActivity {
 
                         if(user_role.equals("user"))
                         {
-                            Intent intent = new Intent(Splash_activity.this, UserDashboard_activity.class);
-                            startActivity(intent);
-                            finish();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    Intent intent = new Intent(Splash_activity.this, UserDashboard_activity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }, 3000);
+
                         }
                         else if(user_role.equals("renter"))
                         {
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
                             Intent intent = new Intent(Splash_activity.this, RenterDashboard_activity.class);
                             startActivity(intent);
                             finish();
+                                }
+                            }, 3000);
                         }
                         else if(user_role.equals("admin")){
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
                             Intent intent = new Intent(Splash_activity.this, AdminDashboard_activity.class);
                             startActivity(intent);
                             finish();
+                                }
+                            }, 3000);
                         }
 
                         else if(user_role.equals("block")){
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
                             Intent LoginIntent = new Intent(Splash_activity.this, BlockedUser.class);
                             LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(LoginIntent);
-                        }
-                        else {
-                            Intent LoginIntent = new Intent(Splash_activity.this, Login_activity.class);
-                            LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(LoginIntent);
+                                }
+                            }, 3000);
                         }
                     }
 

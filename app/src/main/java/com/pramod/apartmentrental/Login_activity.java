@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.Admin.AdminDashboard_activity;
 import com.pramod.apartmentrental.Renter.RenterDashboard_activity;
+import com.pramod.apartmentrental.User.BlockedUser;
 import com.pramod.apartmentrental.User.UserDashboard_activity;
 
 public class Login_activity extends AppCompatActivity {
@@ -92,7 +93,7 @@ public class Login_activity extends AppCompatActivity {
                             }
                             else if(user_role.equals("block"))
                             {
-                                Intent intent = new Intent(Login_activity.this, Splash_activity.class);
+                                Intent intent = new Intent(Login_activity.this, BlockedUser.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
