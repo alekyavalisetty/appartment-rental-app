@@ -113,6 +113,7 @@ public class RenterModifyListing extends AppCompatActivity {
                     }
                     else {
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("listings").child(listingID);
+                        listingImage.setEnabled(true);
                     }
                 }
             }
@@ -123,6 +124,18 @@ public class RenterModifyListing extends AppCompatActivity {
             }
         });
 
+        //to select image from galary.
+        listingImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //tells the app to go outside the app and not from the app
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
+
+            }
+        });
 
         mListingDatabase = FirebaseDatabase.getInstance().getReference().child("listings").child(listingID);
 
