@@ -1,5 +1,6 @@
 package com.pramod.apartmentrental.User.AvailableApartments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,10 +9,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,8 +26,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.R;
+
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import java.util.ArrayList;
@@ -33,7 +42,8 @@ public class User_home_fragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter ListingCardItemAdapter;
     private RecyclerView.LayoutManager mListingLayoutManager;
-
+    private EditText mFilterEditText;
+    private LinearLayout mFilterButton;
 
 
     public User_home_fragment() {
@@ -60,7 +70,7 @@ public class User_home_fragment extends Fragment {
 
 
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+        mFilterButton = view.findViewById(R.id.btnFilter);
 
         mRecyclerView = view.findViewById(R.id.recyclerViewApartments);
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -73,7 +83,95 @@ public class User_home_fragment extends Fragment {
         mRecyclerView.setAdapter(ListingCardItemAdapter);
 
         getRenterApartmentDetails();
+
+       mFilterButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               filterByPrice();
+
+           }
+       });
     }
+
+    private void filterByPrice() {
+
+        resultListings.clear();
+        ListingCardItemAdapter.notifyDataSetChanged();
+        FirebaseDatabase.getInstance().getReference().child("listings").orderByChild("listing_price")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()){
+
+                    for(DataSnapshot showlist : dataSnapshot.getChildren()){
+
+                        GetPriceDetails(showlist.getKey());
+                    }
+
+                }else
+                {
+                    Toast.makeText(getContext(), "It's Empty! Check back Later!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void GetPriceDetails(final String key) {
+
+      FirebaseDatabase.getInstance().getReference().child("listings").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()) {
+
+                    String listingname = "";
+                    String listingimageurl = "";
+                    String listingdescription = "";
+                    String listingprice = "";
+                    String listingrenter = dataSnapshot.child("listing_renter_id").getValue().toString();
+
+                    if(!listingrenter.equals(currentUserID)) {
+                        if (dataSnapshot.child("listing_name").getValue() != null) {
+                            listingname = dataSnapshot.child("listing_name").getValue().toString();
+                        }
+
+                        if (dataSnapshot.child("listing_description").getValue() != null) {
+                            listingdescription = dataSnapshot.child("listing_description").getValue().toString();
+                        }
+
+                        if (dataSnapshot.child("listing_price").getValue() != null) {
+                            listingprice = dataSnapshot.child("listing_price").getValue().toString();
+                        }
+
+                        if (!dataSnapshot.child("listing_image").getValue().equals("default")) {
+                            listingimageurl = dataSnapshot.child("listing_image").getValue().toString();
+                        } else {
+                            listingimageurl = "default";
+                        }
+
+                        User_home_object obj = new User_home_object(key, listingname, listingdescription, listingprice, listingimageurl);
+                        resultListings.add(obj);
+                        ListingCardItemAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
     private void getRenterApartmentDetails() {
 
@@ -101,11 +199,10 @@ public class User_home_fragment extends Fragment {
             }
         });
 
-        ListingCardItemAdapter.notifyDataSetChanged();
+
     }
 
     private void GetApartmentDetails(final String key) {
-
 
         DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
         listDb.addListenerForSingleValueEvent(new ValueEventListener() {

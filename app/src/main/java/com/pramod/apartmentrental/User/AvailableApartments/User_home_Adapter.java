@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.pramod.apartmentrental.R;
 
 import java.util.List;
@@ -27,6 +25,7 @@ public class User_home_Adapter extends RecyclerView.Adapter<User_home_view_holde
         this.listingsList = listingsList;
         this.context = context;
     }
+
 
     @NonNull
     @Override
@@ -58,5 +57,5 @@ public class User_home_Adapter extends RecyclerView.Adapter<User_home_view_holde
     }
 
 
-
 }
+
