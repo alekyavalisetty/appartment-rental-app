@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Admin.UserAdminActivity"></activity>
+        <activity android:name=".User.FilterListings"></activity>
+        <activity android:name=".Admin.UserAdminActivity" />
         <activity android:name=".UserProfileSettings" />
         <activity android:name=".Renter.RenterModifyListing" />
         <activity android:name=".User.ContactRenter" />

@@ -9,6 +9,32 @@ android:orientation="vertical"
 tools:context=".User.AvailableApartments.User_home_fragment"
     >
 
+    <LinearLayout
+        android:id="@+id/btnFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Filter By Price "/>
+
+        <Button
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ic_filter"
+            android:backgroundTint="@color/colorPrimary"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+
+
 
 
     <androidx.core.widget.NestedScrollView
