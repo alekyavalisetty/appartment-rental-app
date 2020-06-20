@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pramod.apartmentrental.Admin.AdminDashboard_activity;
 import com.pramod.apartmentrental.Renter.RenterDashboard_activity;
+import com.pramod.apartmentrental.User.BlockedUser;
 import com.pramod.apartmentrental.User.UserDashboard_activity;
 
 public class Splash_activity extends AppCompatActivity {
@@ -30,67 +34,70 @@ public class Splash_activity extends AppCompatActivity {
     String user_role;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-      mFirebaseAuth = FirebaseAuth.getInstance();
 
-      if(mFirebaseAuth.getCurrentUser()!=null){
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        if(mFirebaseAuth.getCurrentUser()!=null){
 
-          firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
-              @Override
-              public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                  final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if(currentUser != null){
 
-                  if(currentUser != null){
-
-                      currentUserID = currentUser.getUid();
-                      usersDb = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
-
-
-                      usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
-                          @Override
-                          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                currentUserID = currentUser.getUid();
+                usersDb = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
+                usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-                              user_role = dataSnapshot.child("role").getValue(String.class);
+                        user_role = dataSnapshot.child("role").getValue(String.class);
 
-                              if(user_role.equals("user"))
-                              {
-                                  Intent intent = new Intent(Splash_activity.this, UserDashboard_activity.class);
-                                  startActivity(intent);
-                                  finish();
-                              }
-                            else if(user_role.equals("renter"))
-                            {
-                                Intent intent = new Intent(Splash_activity.this, RenterDashboard_activity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                              else if(user_role.equals("admin")){
-                                  Intent intent = new Intent(Splash_activity.this, AdminDashboard_activity.class);
-                                  startActivity(intent);
-                                  finish();
-                              }
-                          }
+                        if(user_role.equals("user"))
+                        {
+                            Intent intent = new Intent(Splash_activity.this, UserDashboard_activity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(user_role.equals("renter"))
+                        {
+                            Intent intent = new Intent(Splash_activity.this, RenterDashboard_activity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(user_role.equals("admin")){
+                            Intent intent = new Intent(Splash_activity.this, AdminDashboard_activity.class);
+                            startActivity(intent);
+                            finish();
+                        }
 
-                          @Override
-                          public void onCancelled(@NonNull DatabaseError databaseError) {
+                        else if(user_role.equals("block")){
+                            Intent LoginIntent = new Intent(Splash_activity.this, BlockedUser.class);
+                            LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(LoginIntent);
+                        }
+                        else {
+                            Intent LoginIntent = new Intent(Splash_activity.this, Login_activity.class);
+                            LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(LoginIntent);
+                        }
+                    }
 
-                          }
-                      });
-                  }
-              }
-          };
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
       }
       else {
           Intent LoginIntent = new Intent(Splash_activity.this, Login_activity.class);
-          LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+          LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(LoginIntent);
-          finish();
       }
 
 
@@ -99,15 +106,14 @@ public class Splash_activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mFirebaseAuth.addAuthStateListener(firebaseAuthStateListener);
 
+       // mFirebaseAuth.addAuthStateListener(firebaseAuthStateListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mFirebaseAuth.removeAuthStateListener(firebaseAuthStateListener);
-        finish();
+       // mFirebaseAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
 
 }

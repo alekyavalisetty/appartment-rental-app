@@ -61,9 +61,6 @@ public class Login_activity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -93,6 +90,12 @@ public class Login_activity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
+                            else if(user_role.equals("block"))
+                            {
+                                Intent intent = new Intent(Login_activity.this, Splash_activity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
                         }
 
                         @Override
@@ -101,8 +104,6 @@ public class Login_activity extends AppCompatActivity {
                         }
                     });
                 }
-            }
-        };
 
         mSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,15 +163,12 @@ public class Login_activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mFirebaseAuth.addAuthStateListener(firebaseAuthStateListener);
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mFirebaseAuth.removeAuthStateListener(firebaseAuthStateListener);
-        finish();
     }
 
     private void showSelectionScreen() {
