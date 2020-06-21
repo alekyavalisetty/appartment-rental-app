@@ -112,9 +112,13 @@ public class Splash_activity extends AppCompatActivity {
             }
       }
       else {
+            handler.postDelayed(new Runnable() {
+                public void run() {
           Intent LoginIntent = new Intent(Splash_activity.this, Login_activity.class);
           LoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(LoginIntent);
+                }
+            }, 3000);
       }
 
 

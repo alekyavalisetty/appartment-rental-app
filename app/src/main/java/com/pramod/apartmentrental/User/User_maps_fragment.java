@@ -185,7 +185,7 @@ public class User_maps_fragment extends Fragment implements OnMapReadyCallback {
                         markerOptions.position(point);
                         markerOptions.title(name);
                         markerOptions.snippet(snippet);
-                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
 
                         marker = googleMap.addMarker(markerOptions);
 

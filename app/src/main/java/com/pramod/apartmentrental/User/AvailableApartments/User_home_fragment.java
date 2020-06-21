@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
@@ -76,7 +77,8 @@ public class User_home_fragment extends Fragment {
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
 
-        mListingLayoutManager = new GridLayoutManager(getContext(),2);
+        //mListingLayoutManager = new GridLayoutManager(getContext(),2);
+        mListingLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mListingLayoutManager);
 
         ListingCardItemAdapter = new User_home_Adapter(getListDataSetListings(), getActivity());
@@ -84,14 +86,14 @@ public class User_home_fragment extends Fragment {
 
         getRenterApartmentDetails();
 
-       mFilterButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+        mFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-               filterByPrice();
+                filterByPrice();
 
-           }
-       });
+            }
+        });
     }
 
     private void filterByPrice() {
@@ -100,33 +102,33 @@ public class User_home_fragment extends Fragment {
         ListingCardItemAdapter.notifyDataSetChanged();
         FirebaseDatabase.getInstance().getReference().child("listings").orderByChild("listing_price")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.exists()){
+                        if(dataSnapshot.exists()){
 
-                    for(DataSnapshot showlist : dataSnapshot.getChildren()){
+                            for(DataSnapshot showlist : dataSnapshot.getChildren()){
 
-                        GetPriceDetails(showlist.getKey());
+                                GetPriceDetails(showlist.getKey());
+                            }
+
+                        }else
+                        {
+                            Toast.makeText(getContext(), "It's Empty! Check back Later!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
-                }else
-                {
-                    Toast.makeText(getContext(), "It's Empty! Check back Later!", Toast.LENGTH_SHORT).show();
-                }
-            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                    }
+                });
 
     }
 
     private void GetPriceDetails(final String key) {
 
-      FirebaseDatabase.getInstance().getReference().child("listings").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("listings").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
