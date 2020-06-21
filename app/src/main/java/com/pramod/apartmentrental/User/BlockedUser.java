@@ -25,7 +25,6 @@ public class BlockedUser extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mLogout = findViewById(R.id.splashLogout);
-        Toast.makeText(BlockedUser.this, "Your account is blocked due to violating our terms and conditions. Please contact support for further assistance.", Toast.LENGTH_LONG).show();
 
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
