@@ -1,46 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@drawable/backgroundgradient2"
-android:orientation="vertical"
-tools:context=".User.AvailableApartments.User_home_fragment"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".User.AvailableApartments.User_home_fragment"
     >
 
-    <com.google.android.material.appbar.AppBarLayout
+
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backgroundgradient2"
-        android:paddingTop="24dp"
-        app:elevation="0dp">
-<LinearLayout
-    android:id="@+id/btnFilter"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="horizontal">
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
-    <TextView
-        android:id="@+id/toolbar"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/btnFilter"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/blur"
         android:gravity="center"
-        android:text="Filter By Price"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
-    <Button
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_filter"
+        android:orientation="horizontal">
 
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        />
+        <TextView
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Filter By Price"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_filter"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            />
 
-</LinearLayout>
+    </LinearLayout>
+
     <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/btnFilter"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginRight="12dp"
@@ -55,7 +59,4 @@ tools:context=".User.AvailableApartments.User_home_fragment"
             />
     </androidx.core.widget.NestedScrollView>
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

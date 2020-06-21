@@ -6,23 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".User.Favourites.User_favourites_fragment">
 
-    <com.google.android.material.appbar.AppBarLayout
+
+
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backgroundgradient2"
-        android:paddingTop="24dp"
-        app:elevation="0dp">
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:scaleType="centerCrop"
+        android:src="@drawable/favourites" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewFavourites"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        tools:listitem="@layout/item_user_favourites_listing"/>
+        android:layout_height="match_parent">
 
-</androidx.core.widget.NestedScrollView>
-    </com.google.android.material.appbar.AppBarLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFavourites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_user_favourites_listing"/>
+
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

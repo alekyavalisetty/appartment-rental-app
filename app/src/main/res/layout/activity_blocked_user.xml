@@ -4,22 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    >
 
     <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/apt_icon"/>
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/blur_image" />
 
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/antic_slab"
+        android:padding="8dp"
+        android:text="Your account is blocked due to violating our terms and conditions. Please contact support for further assistance."
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/splashLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:layout_below="@id/text"
+        android:layout_centerInParent="true"
         android:text="sign out"
+        android:background="@color/purple"
         android:textColor="@color/white"/>
 </RelativeLayout>

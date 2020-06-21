@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgradient"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_image" />
+
 
         <TextView
             android:id="@+id/back"
@@ -18,31 +24,31 @@
             android:layout_height="40dp"
             android:layout_gravity="left"
             android:layout_margin="20dp"
+            android:backgroundTint="@color/white"
             android:background="@drawable/ic_back"/>
 
-        <RelativeLayout
-            android:id="@+id/rl"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/titleEdit"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/back"
-            android:layout_centerHorizontal="true">
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/eb_garamond"
+            android:gravity="center"
+            android:text="Modify Profile"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/apt_icon"
-
-                />
-
-        </RelativeLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl"
-            android:background="@drawable/layout_design"
+            android:layout_below="@id/titleEdit"
+            android:background="@color/blur"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:layout_margin="20dp"
@@ -94,11 +100,13 @@
                         android:layout_width="40sp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:text="Name" />
+                        android:text="Name"
+                        android:textColor="@color/white"/>
 
                     <EditText
                         android:id="@+id/username"
                         android:layout_width="60sp"
+                        android:textColor="@color/white"
                         android:layout_height="wrap_content"
 
                         android:layout_marginLeft="20dp"
@@ -122,6 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
                         android:text="Email"
+                        android:textColor="@color/white"
                         />
 
                     <TextView
@@ -130,6 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0.8"
+                        android:textColor="@color/white"
                         android:background="@color/transparent"
                         android:focusable="auto"
                         android:text="User Email ID"
@@ -149,6 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
                         android:text="Phone"
+                        android:textColor="@color/white"
                         />
 
                     <EditText
@@ -160,6 +171,7 @@
                         android:background="@color/transparent"
                         android:focusable="auto"
                         android:inputType="number"
+                        android:textColor="@color/white"
                         android:maxLength="80"
                         android:text="Your phone number"
                         />
@@ -198,6 +210,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="12dp"
+                    android:textColor="@color/white"
                     android:background="@drawable/bottom_border"
                     android:text="Edit Profile" />
 
@@ -206,6 +219,7 @@
                     android:layout_width="150dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
+                    android:textColor="@color/white"
                     android:layout_marginLeft="12dp"
                     android:background="@drawable/bottom_border"
                     android:text="Block Profile"

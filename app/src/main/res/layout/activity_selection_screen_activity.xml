@@ -4,23 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectionScreen_activity">
+    tools:context=".SelectionScreen_activity"
+    >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/backgroundgradient">
+
+        >
+
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tv_description"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Rental Apartments provides a platform to search nearest apartment rentals or post new rentals. Please select from the following. "
             android:layout_margin="16dp"
-            android:fontFamily="sans-serif-condensed-medium"
+            android:layout_width="wrap_content"
             android:textSize="26sp"
-            android:id="@+id/tv_description"/>
+            android:fontFamily="@font/eb_garamond"
+            android:textColor="@color/black"
+            />
+
+
 
         <Button
             android:layout_width="match_parent"
@@ -31,13 +45,14 @@
             android:id="@+id/btn_explore_user"
             android:text="Explore Available Apartments"
             android:textColor="@color/white"
-            android:backgroundTint="@color/colorPrimary"/>
+            android:backgroundTint="@color/blur"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_explore_user"
             android:text="or"
+            android:textColor="@color/black"
             android:id="@+id/tv_or"
             android:layout_marginTop="4dp"
             android:layout_centerInParent="true"/>

@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Renter.my_listings.Renter_my_listings">
-    <com.google.android.material.appbar.AppBarLayout
+
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backgroundgradient2"
-        android:paddingTop="24dp"
-        app:elevation="0dp">
+        android:scaleType="centerCrop"
+        android:src="@drawable/favourites" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -25,5 +26,4 @@
 
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.core.widget.NestedScrollView>
-    </com.google.android.material.appbar.AppBarLayout>
 </RelativeLayout>
