@@ -5,8 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login_activity"
-    android:background="@drawable/backgroundgradient">
+    android:background="@drawable/background">
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,41 +27,52 @@
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/apt_icon"
-
-            />
+            android:src="@drawable/apt_logo" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email ID"
-            android:inputType="text"
-            android:maxLines="1"
-            android:layout_marginLeft="38dp"
-            android:layout_marginRight="38dp"
-            android:padding="12dp"/>
+            android:layout_marginBottom="6dp"
+            android:textColorHint="@color/white"
+            app:hintTextColor="@color/white"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="38dp"
+                android:layout_marginRight="38dp"
+                android:background="@color/blur"
+                android:hint="Email ID"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_password"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:maxLines="1"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="38dp"
-            android:layout_marginRight="38dp"
-            android:padding="12dp"/>
+            android:textColorHint="@color/white"
+            app:hintTextColor="@color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="38dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="38dp"
+                android:background="@color/blur"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -68,7 +85,7 @@
             android:textColor="#fff"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/background_rounded" />
+            android:background="@color/purple" />
 
 
     </LinearLayout>
@@ -81,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="12dp"
-       android:layout_marginBottom="12dp"
+        android:layout_marginBottom="12dp"
         android:gravity="center"
         android:textColor="@color/white"
         android:text="Sign up"

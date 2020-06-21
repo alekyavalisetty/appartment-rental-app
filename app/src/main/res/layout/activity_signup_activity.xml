@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-    android:background="@drawable/backgroundgradient"
-tools:context=".Signup_activity"
-android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Signup_activity">
 
-
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_image" />
     <TextView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/back"
         android:background="@drawable/ic_back"
         android:layout_gravity="left"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/white"
         android:layout_margin="20dp"/>
 
 
@@ -28,10 +32,10 @@ android:orientation="vertical">
         android:textStyle="bold"
         android:layout_marginTop="15dp"
         android:visibility="visible"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/eb_garamond"
         android:id="@+id/maintitle"
         android:layout_marginLeft="14dp"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/white"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -44,7 +48,7 @@ android:orientation="vertical">
         android:visibility="visible"
         android:fontFamily="sans-serif-light"
         android:id="@+id/subtitle"
-        android:textColor="#000"/>
+        android:textColor="@color/white"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -53,168 +57,182 @@ android:orientation="vertical">
         android:fillViewport="true">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/subtitle"
-        android:layout_marginTop="48dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/subtitle"
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_account"
-        android:id="@+id/photo"
-        android:tint="@color/colorPrimary"
-        android:scaleType="centerCrop"
-        />
+            android:layout_marginTop="48dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:id="@+id/tv_name"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:textAllCaps="true"
-        android:layout_below="@id/photo"
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_account"
+                android:tint="@color/white"
+                />
 
-         />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/photo"
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:maxLines="1"
-        android:id="@+id/et_name"
-        android:layout_below="@id/tv_name"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-light"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        />
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Name"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+
+                />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tv_name"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/blur"
+                android:fontFamily="sans-serif-light"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:text="Email"
-        android:id="@+id/tv_email"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:textAllCaps="true"
-        android:layout_below="@id/et_name"
-        android:textColor="#000"
-        android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_name"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Email"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_email"
-        android:maxLines="1"
-        android:layout_below="@id/tv_email"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"/>
+                />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:text="Password"
-        android:id="@+id/tv_password"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:textAllCaps="true"
-        android:layout_below="@id/et_email"
-        android:textColor="#000"
-        android:textSize="15sp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tv_email"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/blur"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_password"
-        android:layout_below="@id/tv_password"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:paddingLeft="4dp"
-        android:maxLines="1"
-        android:paddingRight="4dp"/>
+            <TextView
+                android:id="@+id/tv_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_email"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Password"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:text="Select Role"
-        android:id="@+id/tv_role"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:textAllCaps="true"
-        android:layout_below="@id/et_password"
-        android:textColor="#000"
-        android:visibility="gone"
-        android:textSize="15sp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tv_password"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/blur"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
 
-    <Spinner
-        android:visibility="gone"
-        android:id="@+id/spinner_role"
-        android:layout_below="@id/tv_role"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        />
+            <TextView
+                android:id="@+id/tv_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_password"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Select Role"
+                android:textAllCaps="true"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:visibility="gone" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:text="Phone Number"
-        android:id="@+id/tv_phone"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:textAllCaps="true"
-        android:layout_below="@id/spinner_role"
-        android:textColor="#000"
-        android:textSize="15sp" />
+            <Spinner
+                android:id="@+id/spinner_role"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tv_role"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="32dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:visibility="gone"
+                />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_phone"
-        android:layout_below="@id/tv_phone"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:paddingLeft="4dp"
-        android:maxLength="10"
-        android:maxLines="1"
-        android:inputType="number"
-        android:paddingRight="4dp"/>
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinner_role"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Phone Number"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:id="@+id/btn_signup"
-        android:layout_below="@id/et_phone"
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginLeft="32dp"
-        android:text="sign up"
-        android:textColor="#fff"
-        android:background="@drawable/background_rounded"
-        android:backgroundTint="@color/colorPrimary"
-        />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tv_phone"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/blur"
+                android:inputType="number"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/btn_signup"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/et_phone"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/purple"
+                android:text="sign up"
+                android:textColor="#fff"
+                />
+
+        </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
 
