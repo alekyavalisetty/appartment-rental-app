@@ -112,31 +112,34 @@ public class AdminUsersList extends Fragment {
                     String userPhoto = "";
                     String userPhone = "";
                     String userEmail = "";
-                    String userId = key;
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                    if(key!= FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    if(!key.equals(userId)){
 
-                    if (dataSnapshot.child("name").getValue() != null) {
-                        userName = dataSnapshot.child("name").getValue().toString();
+                        if (dataSnapshot.child("name").getValue() != null) {
+                            userName = dataSnapshot.child("name").getValue().toString();
+                        }
+
+                        if (dataSnapshot.child("email").getValue() != null) {
+                            userEmail = dataSnapshot.child("email").getValue().toString();
+                        }
+
+                        if (dataSnapshot.child("phone").getValue() != null) {
+                            userPhone = dataSnapshot.child("phone").getValue().toString();
+                        }
+
+                        if (!dataSnapshot.child("photo").getValue().equals("")) {
+                            userPhoto = dataSnapshot.child("photo").getValue().toString();
+                        } else {
+                            userPhoto = "";
+                        }
+
+                        Users obj = new Users(key, userName, userEmail, userPhone, userPhoto);
+                        resultUserListings.add(obj);
+                        mUserListingAdapter.notifyDataSetChanged();
                     }
 
-                    if (dataSnapshot.child("email").getValue() != null) {
-                        userEmail = dataSnapshot.child("email").getValue().toString();
-                    }
 
-                    if (dataSnapshot.child("phone").getValue() != null) {
-                        userPhone = dataSnapshot.child("phone").getValue().toString();
-                    }
-
-                    if (!dataSnapshot.child("photo").getValue().equals("")) {
-                        userPhoto = dataSnapshot.child("photo").getValue().toString();
-                    } else {
-                        userPhoto = "";
-                    }
-
-                    Users obj = new Users(key, userName, userEmail, userPhone, userPhoto);
-                    resultUserListings.add(obj);
-                    mUserListingAdapter.notifyDataSetChanged();
                 }
             }
 

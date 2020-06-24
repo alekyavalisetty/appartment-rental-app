@@ -45,6 +45,8 @@
 
 
         <LinearLayout
+            android:id="@+id/ll1"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/titleEdit"
@@ -215,6 +217,17 @@
                     android:text="Edit Profile" />
 
                 <Button
+                    android:id="@+id/viewListing"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/colorPrimary"
+                    android:text="View Listings"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+                <Button
                     android:id="@+id/blockProfile"
                     android:layout_width="150dp"
                     android:layout_height="40dp"
@@ -231,7 +244,16 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/titleEdit"
+            android:orientation="vertical"
+            android:visibility="gone" />
+
     </RelativeLayout>
+
 
 
 </LinearLayout>

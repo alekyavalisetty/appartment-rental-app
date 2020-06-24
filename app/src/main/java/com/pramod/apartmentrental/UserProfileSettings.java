@@ -3,6 +3,7 @@ package com.pramod.apartmentrental;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.pramod.apartmentrental.Admin.listings.AdminListings;
+import com.pramod.apartmentrental.User.AvailableApartments.User_home_fragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -39,17 +43,19 @@ import java.util.Map;
 public class UserProfileSettings extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mUserDatabase;
+    private DatabaseReference mUserDatabase, mUserBlockDatabase;
 
     private EditText mUserName, mUserPhone;
     private TextView mUserEmail;
-    private Button mSaveChanges,mEditProfile, mBlockProfile;
-    private TextView mBack;
+    private Button mSaveChanges,mEditProfile, mBlockProfile, mViewListings;
+    private TextView mBack, mtitle;
 
     private Uri userProfileUri;
     private ImageView mProfileImage;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private String userID, userName,userEmail,usersImageUrl, userPhone, role,roleDb;
+
+    private LinearLayout l1, l2;
 
 
     @Override
@@ -68,14 +74,24 @@ public class UserProfileSettings extends AppCompatActivity {
 
         mBack = findViewById(R.id.back);
 
-
         mSaveChanges = findViewById(R.id.savechanges);
         mSaveChanges.setVisibility(View.GONE);
 
         mEditProfile = findViewById(R.id.editprofile);
 
+        mViewListings = findViewById(R.id.viewListing);
+        mViewListings.setVisibility(View.GONE);
+
         mBlockProfile = findViewById(R.id.blockProfile);
         mBlockProfile.setVisibility(View.GONE);
+
+        mtitle = findViewById(R.id.titleEdit);
+
+        //layouts
+        l1 = findViewById(R.id.ll1);
+        l2 = findViewById(R.id.linearContainer);
+
+        l2.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -86,13 +102,19 @@ public class UserProfileSettings extends AppCompatActivity {
         {
             userID = (String)b.get("renter");
             role = (String)b.get("role");
-            mBlockProfile.setVisibility(View.VISIBLE);
-            mEditProfile.setVisibility(View.GONE);
         }
         else {
             userID = mAuth.getCurrentUser().getUid();
             role = "user";
         }
+
+        if(role.equals("admin"))
+        {
+            mBlockProfile.setVisibility(View.VISIBLE);
+            mEditProfile.setVisibility(View.GONE);
+            mViewListings.setVisibility(View.VISIBLE);
+        }
+
         mProfileImage = findViewById(R.id.profileimage);
         mProfileImage.setEnabled(false);
 
@@ -100,8 +122,6 @@ public class UserProfileSettings extends AppCompatActivity {
         //connecting to database
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
         getUserInfo();
-
-
 
 
         mProfileImage.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +164,26 @@ public class UserProfileSettings extends AppCompatActivity {
                     Toast.makeText(UserProfileSettings.this, "User is blocked successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+            }
+        });
+
+        mViewListings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                l1.setVisibility(View.GONE);
+                l2.setVisibility(View.VISIBLE);
+                mtitle.setText("Listings");
+
+                FragmentManager fm = getSupportFragmentManager();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("renterId", userID);
+                bundle.putBoolean("fromProfile", true);
+
+                AdminListings fragobj = new AdminListings();
+                fragobj.setArguments(bundle);
+
+                fm.beginTransaction().replace(R.id.linearContainer, fragobj).commit();
             }
         });
 
@@ -236,9 +276,6 @@ public class UserProfileSettings extends AppCompatActivity {
 
                         }
                     }
-
-
-
                 }
             });
             Toast.makeText(this, "Details are updated successfully.", Toast.LENGTH_SHORT).show();

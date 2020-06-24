@@ -35,7 +35,9 @@ public class AdminListings extends Fragment {
     private RecyclerView.Adapter mListingAdapter;
     private RecyclerView.LayoutManager mListingLayoutManager;
     private String listingUserId;
+    Bundle bundle;
     private ArrayList<AdminListingsObject> resultListings= new ArrayList<AdminListingsObject>();
+    private Boolean fromProfile = false;
 
 
     public AdminListings() {
@@ -52,6 +54,14 @@ public class AdminListings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Bundle bundle = this.getArguments();
+        if(bundle!=null)
+        {
+            listingUserId = bundle.getString("renterId");
+            fromProfile = bundle.getBoolean("fromProfile");
+        }
+
+
         return inflater.inflate(R.layout.fragment_admin_listings, container, false);
     }
 
@@ -71,7 +81,10 @@ public class AdminListings extends Fragment {
 
         getApartmentDetails();
 
+
     }
+
+
 
     private void getApartmentDetails() {
         DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings");
@@ -97,22 +110,79 @@ public class AdminListings extends Fragment {
 
             }
         });
+
     }
+
+
 
     private void GetApartmentDetails(final String key) {
 
         DatabaseReference listDb = FirebaseDatabase.getInstance().getReference().child("listings").child(key);
-        listDb.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        if(fromProfile)
+        {
 
-                if(dataSnapshot.exists()) {
+            listDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    String listingname = "";
-                    String listingimageurl = "";
-                    String listingdescription = "";
-                    String listingprice = "";
-                    String listingrenter = dataSnapshot.child("listing_renter_id").getValue().toString();
+                    if(dataSnapshot.exists()) {
+
+                        String listingname = "";
+                        String listingimageurl = "";
+                        String listingdescription = "";
+                        String listingprice = "";
+                        String listingrenter = dataSnapshot.child("listing_renter_id").getValue().toString();
+
+                        if(listingrenter.equals(listingUserId))
+                        {
+                            if (dataSnapshot.child("listing_name").getValue() != null) {
+                                listingname = dataSnapshot.child("listing_name").getValue().toString();
+                            }
+
+                            if (dataSnapshot.child("listing_description").getValue() != null) {
+                                listingdescription = dataSnapshot.child("listing_description").getValue().toString();
+                            }
+
+                            if (dataSnapshot.child("listing_price").getValue() != null) {
+                                listingprice = dataSnapshot.child("listing_price").getValue().toString();
+                            }
+
+                            if (!dataSnapshot.child("listing_image").getValue().equals("default")) {
+                                listingimageurl = dataSnapshot.child("listing_image").getValue().toString();
+                            } else {
+                                listingimageurl = "default";
+                            }
+
+                            AdminListingsObject obj = new AdminListingsObject(key, listingname, listingdescription, listingprice, listingimageurl,listingrenter);
+                            resultListings.add(obj);
+                            mListingAdapter.notifyDataSetChanged();
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        else
+        {
+            listDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.exists()) {
+
+                        String listingname = "";
+                        String listingimageurl = "";
+                        String listingdescription = "";
+                        String listingprice = "";
+                        String listingrenter = dataSnapshot.child("listing_renter_id").getValue().toString();
 
                         if (dataSnapshot.child("listing_name").getValue() != null) {
                             listingname = dataSnapshot.child("listing_name").getValue().toString();
@@ -139,11 +209,14 @@ public class AdminListings extends Fragment {
                 }
 
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+
+
     }
 
     private List<AdminListingsObject> getListDataSetListings() {
