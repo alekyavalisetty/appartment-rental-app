@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public TextView mUserName, mUserPhone, mUserEmail, mUserId;
     public ImageView mUserImage;
+    LinearLayout mItemBackground;
 
     public UsersViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -28,6 +30,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
         mUserEmail = itemView.findViewById(R.id.userEmail);
         mUserId = itemView.findViewById(R.id.userId);
         mUserImage = itemView.findViewById(R.id.userImage);
+        mItemBackground = itemView.findViewById(R.id.viewUserInfo);
 
     }
 

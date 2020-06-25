@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pramod.apartmentrental.Admin.listings.AdminListingsObject;
 import com.pramod.apartmentrental.R;
 
 import java.util.ArrayList;
@@ -36,6 +35,7 @@ public class AdminUsersList extends Fragment {
     private ArrayList<Users> resultUserListings= new ArrayList<Users>();
     boolean click = false;
     private String userId, role;
+
 
 
     public AdminUsersList() {
@@ -163,7 +163,11 @@ public class AdminUsersList extends Fragment {
                             userPhoto = "";
                         }
 
-                        Users obj = new Users(key, userName, userEmail, userPhone, userPhoto);
+                        if (dataSnapshot.child("role").getValue() != null) {
+                            role = dataSnapshot.child("role").getValue().toString();
+                        }
+
+                        Users obj = new Users(key, userName, userEmail, userPhone, userPhoto, role);
                         resultUserListings.add(obj);
                         mUserListingAdapter.notifyDataSetChanged();
                     }
@@ -248,7 +252,7 @@ public class AdminUsersList extends Fragment {
                             userPhoto = "";
                         }
 
-                            Users obj = new Users(key, userName, userEmail, userPhone, userPhoto);
+                            Users obj = new Users(key, userName, userEmail, userPhone, userPhoto, role);
                             resultUserListings.add(obj);
                             mUserListingAdapter.notifyDataSetChanged();
 

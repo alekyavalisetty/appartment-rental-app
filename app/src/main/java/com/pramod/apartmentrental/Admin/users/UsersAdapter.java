@@ -47,6 +47,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersViewHolder>{
             Glide.with(context).load(userList.get(position).getPhoto()).into(holder.mUserImage);
         }
 
+        if(userList.get(position).getRole().equals("block"))
+        {
+            holder.mItemBackground.setBackgroundResource(R.color.red_trans);
+        }
+
 
     }
 

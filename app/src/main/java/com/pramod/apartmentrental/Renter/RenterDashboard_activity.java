@@ -15,9 +15,11 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pramod.apartmentrental.Login_activity;
+import com.pramod.apartmentrental.Messages.Messages_fragment;
 import com.pramod.apartmentrental.R;
 import com.pramod.apartmentrental.Renter.home_listings.Renter_home_fragment;
 import com.pramod.apartmentrental.Renter.my_listings.Renter_my_listings;
+import com.pramod.apartmentrental.User.Favourites.User_favourites_fragment;
 import com.pramod.apartmentrental.User.User_account_fragment;
 
 public class RenterDashboard_activity extends AppCompatActivity {
@@ -42,6 +44,9 @@ public class RenterDashboard_activity extends AppCompatActivity {
                     return true;
                 case R.id.account_Renter:
                     getFragment(new User_account_fragment());
+                    return true;
+                case R.id.my_messages:
+                    getFragment(new Messages_fragment());
                     return true;
             }
             return false;

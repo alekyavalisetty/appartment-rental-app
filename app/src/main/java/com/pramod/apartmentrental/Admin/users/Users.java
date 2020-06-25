@@ -7,13 +7,23 @@ public class Users {
     private String phone;
     private String photo;
     private String id;
+    private String role;
 
-    public Users(String id,String name, String email, String phone, String photo) {
+    public Users(String id, String name, String email, String phone, String photo, String role) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.photo = photo;
         this.id = id;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getId() {
