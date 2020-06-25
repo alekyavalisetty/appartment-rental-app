@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +21,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pramod.apartmentrental.ChatRoom.ChatRoom_activity;
 import com.pramod.apartmentrental.R;
+import com.pramod.apartmentrental.Renter.RenterModifyListing;
 
 import java.util.Map;
 
@@ -30,13 +33,13 @@ public class ContactRenter extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
 
     private TextView mUserName, mUserEmail, mUserPhone;
-    private Button mCallRenter,mMainRenter;
+    DatabaseReference mUserChatDatabase;
     private TextView mBack;
 
     private Uri resultUri;
     private ImageView mProfileImage;
-    private String userID, userName,userEmail,usersImageUrl, userPhone, renterId;
-
+    private Button mCallRenter,mMainRenter, mSendMessage;
+    private String userID, userName,userEmail,usersImageUrl, userPhone, renterId, chatroomId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class ContactRenter extends AppCompatActivity {
 
         mCallRenter = findViewById(R.id.callRenter);
         mMainRenter = findViewById(R.id.mailRenter);
+        mSendMessage = findViewById(R.id.sendMessage);
 
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getCurrentUser().getUid();
@@ -97,6 +101,69 @@ public class ContactRenter extends AppCompatActivity {
                 startActivity(mailIntent.createChooser(mailIntent, ""));
             }
         });
+
+        mSendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //create chat room
+                mUserChatDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+
+                mUserChatDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.child(userID).child("contacts").child(renterId).exists()) {
+                            chatroomId = FirebaseDatabase.getInstance().getReference().child("chatrooms").push().getKey();
+                            mUserChatDatabase.child(userID).child("contacts")
+                                    .child(renterId).child("chatRoomId").setValue(chatroomId);
+
+                            mUserChatDatabase.child(renterId).child("contacts")
+                                    .child(userID).child("chatRoomId").setValue(chatroomId);
+                            goToChatRoom(chatroomId);
+                        }
+                        else
+                        {
+                            mUserChatDatabase.child(userID).child("contacts")
+                                    .child(renterId).child("chatRoomId");
+
+                            mUserChatDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists())
+                                    {
+                                        chatroomId = dataSnapshot.getValue().toString();
+                                        goToChatRoom(chatroomId);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+            }
+        });
+    }
+
+    private void goToChatRoom(String chatroomId) {
+        Intent intent = new Intent(ContactRenter.this, ChatRoom_activity.class);
+        Bundle b = new Bundle();
+        b.putString("renterID",renterId);
+        b.putString("chatID",chatroomId);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 
     private void getUserInfo() {
