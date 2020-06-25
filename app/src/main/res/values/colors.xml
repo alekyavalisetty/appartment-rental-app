@@ -8,6 +8,8 @@
     <color name="blue">#2196f3</color>
     <color name="blur">#7F000000</color>
 
+    <color name="red_trans">#5FFF0000</color>
+
     <color name="purple">#935cff</color>
 
     <color name="background">#77B1B1B1</color>

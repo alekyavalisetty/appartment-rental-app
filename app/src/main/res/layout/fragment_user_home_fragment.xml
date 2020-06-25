@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:background="@color/blur"
         android:gravity="center"
+        android:padding="6dp"
         android:orientation="horizontal">
 
         <TextView
@@ -33,13 +34,13 @@
             android:text="Filter By Price"
             android:textColor="@color/white"
             android:textSize="25sp" />
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_filter"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_filter"
+            android:tint="@color/white"/>
+
 
     </LinearLayout>
 
