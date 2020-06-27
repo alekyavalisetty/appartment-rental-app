@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +57,7 @@ public class RenterModifyListing extends AppCompatActivity {
 
     EditText listingName, listingDescription, listingLocation1, listingPrice,listingLocation;
     ImageButton  getLocation;
-    TextView mBack;
+    TextView mBack, mListingRenter;
     Button saveButton, deleteButton;
     private FirebaseAuth mAuth;
     private String currentUserID,listingID, l_name,l_description, l_location,l_location1,
@@ -64,6 +65,7 @@ public class RenterModifyListing extends AppCompatActivity {
     private Double latitude= null, longitude= null;
     private Uri resultUri;
     private ImageView listingImage;
+    LinearLayout mRenterLayout;
     private DatabaseReference mListingDatabase, mUserDatabase, mAdminDatabase, mUserFavourites;
 
 
@@ -86,6 +88,11 @@ public class RenterModifyListing extends AppCompatActivity {
         listingLocation1 = findViewById(R.id.listing_location1);
         listingPrice = findViewById(R.id.listing_price);
         listingImage = findViewById(R.id.listing_image);
+
+
+        //get Renter Details
+        mListingRenter = findViewById(R.id.listing_renter);
+        mRenterLayout = findViewById(R.id.renter_name_layout);
 
         mBack = findViewById(R.id.back);
         deleteButton = findViewById(R.id.button_delete_ad);
@@ -110,6 +117,26 @@ public class RenterModifyListing extends AppCompatActivity {
                         listingLocation.setEnabled(false);
                         listingLocation1.setEnabled(false);
                         listingPrice.setEnabled(false);
+                        mRenterLayout.setVisibility(View.VISIBLE);
+                        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(renterId).child("name");
+                        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists())
+                                {
+                                    String renter_name = dataSnapshot.getValue().toString();
+                                    mListingRenter.setText(renter_name);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
                     }
                     else {
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("listings").child(listingID);
